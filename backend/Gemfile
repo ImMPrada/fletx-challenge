@@ -38,6 +38,13 @@ gem "thruster", require: false
 group :development, :test do
   gem "byebug"
 
+  # Shoulda Matchers provides one-liner tests for common Rails functionality
+  gem "shoulda-matchers", "~> 6.0"
+  # RSpec for Rails testing framework
+  gem "rspec-rails", "~> 6.1.0"
+  # FactoryBot for test data generation
+  gem "factory_bot_rails", "~> 6.4.0"
+
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
