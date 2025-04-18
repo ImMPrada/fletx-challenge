@@ -24,7 +24,31 @@ RSpec.configure do |config|
       },
       paths: {},
       components: {
-        schemas: {},
+        schemas: {
+          magic_link_success_response: {
+            type: :object,
+            properties: {
+              magic_link: {
+                type: :object,
+                properties: {
+                  message: { type: :string }
+                },
+                required: [ 'message' ]
+              }
+            },
+            required: [ 'magic_link' ]
+          },
+          error_response: {
+            type: :object,
+            properties: {
+              errors: {
+                type: :array,
+                items: { type: :string }
+              }
+            },
+            required: [ 'errors' ]
+          }
+        },
         securitySchemes: {
           bearer_auth: {
             type: :http,
