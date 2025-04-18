@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>¡Hola <%= @user.email %>!</h1>
+    <p>
+      Has solicitado un link mágico para iniciar sesión. Haz click en el siguiente enlace:
+    </p>
+    <p>
+      <a href="<%= @url %>">Iniciar sesión</a>
+    </p>
+    <p>
+      Este link expirará pronto, así que úsalo lo antes posible.
+    </p>
+    <p>¡Gracias y que tengas un buen día!</p>
+  </body>
+</html> 
