@@ -10,7 +10,14 @@ jobs:
   backend-tests:
     name: Backend Tests & Linting
     runs-on: ubuntu-latest
-    
+
+    env:
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      RAILS_ENV: test
+
     services:
       postgres:
         image: postgres:16
@@ -25,7 +32,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,30 +39,37 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: file:./backend/.ruby-version
+          ruby-version: '3.2.2'
           bundler-cache: true
           working-directory: backend
 
-      - name: Setup database
+      - name: Cache Ruby bundle
+        uses: actions/cache@v4
+        with:
+          path: ~/vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle install
+        run: |
+          bundle config set --local path '~/vendor/bundle'
+          bundle install
         working-directory: backend
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/backend_test
+
+      - name: Prepare database
         run: |
           bundle exec rails db:create
           bundle exec rails db:schema:load
+        working-directory: backend
 
       - name: Run RSpec tests
-        working-directory: backend
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/backend_test
         run: bundle exec rspec
+        working-directory: backend
 
       - name: Run Rubocop
-        working-directory: backend
         run: bundle exec rubocop
+        working-directory: backend
 
       - name: Run Brakeman security analysis
-        working-directory: backend
         run: bundle exec brakeman
+        working-directory: backend
