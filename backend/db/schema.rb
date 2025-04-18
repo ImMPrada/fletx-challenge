@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_18_021903) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_18_022224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -97,6 +97,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_021903) do
     t.index ["date"], name: "index_foreign_exchanges_on_date"
   end
 
+  create_table "magic_link_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token"
+    t.datetime "expires_at"
+    t.boolean "used"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_magic_link_tokens_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2, null: false
@@ -123,5 +133,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_021903) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "csv_processings", "csv_uploads"
   add_foreign_key "file_chunks", "csv_uploads"
+  add_foreign_key "magic_link_tokens", "users"
   add_foreign_key "products", "foreign_exchanges"
 end
