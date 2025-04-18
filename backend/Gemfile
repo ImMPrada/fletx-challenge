@@ -38,6 +38,10 @@ gem "rack-cors"
 gem "devise"
 gem "devise-jwt"
 
+# Background job processing
+gem "delayed_job_active_record"
+gem "daemons"
+
 group :development, :test do
   gem "byebug"
   
