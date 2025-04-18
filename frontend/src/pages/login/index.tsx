@@ -1,9 +1,9 @@
 import CenterMidleContainer from "../../templates/center-midle-container"
-
+import LoginForm from "../../components/login-form" 
 const Login = () => {
     return (
         <CenterMidleContainer>
-            <h1>Login</h1>
+            <LoginForm />
         </CenterMidleContainer>
     )
 }
