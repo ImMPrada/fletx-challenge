@@ -32,3 +32,13 @@ Inicia el servidor de desarrollo:
 ```bash
 rails s
 ```
+
+### Documentación de la API
+
+Para generar la documentación de la API, siempre que se requiera actualizarla, ejecuta:
+
+```bash
+RAILS_ENV=test rake rswag:specs:swaggerize
+```
+
+La documentación se puede ver con el servidor de desarrollo corriendo en [http://localhost:3000/api-docs](http://localhost:3000/api-docs)

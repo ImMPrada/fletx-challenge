@@ -1,0 +1,105 @@
+---
+openapi: 3.0.1
+info:
+  title: FLETX API
+  version: v1
+  description: API documentation for FLETX application
+paths:
+  "/api/v1/examples":
+    get:
+      summary: Lista todos los ejemplos
+      tags:
+      - Examples
+      responses:
+        '200':
+          description: lista de ejemplos encontrada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    created_at:
+                      type: string
+                      format: datetime
+                    updated_at:
+                      type: string
+                      format: datetime
+                  required:
+                  - id
+                  - name
+    post:
+      summary: Crea un ejemplo
+      tags:
+      - Examples
+      parameters: []
+      responses:
+        '201':
+          description: ejemplo creado
+        '422':
+          description: entidad no procesable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+  "/api/v1/examples/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Obtiene un ejemplo
+      tags:
+      - Examples
+      responses:
+        '200':
+          description: ejemplo encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                    format: datetime
+                  updated_at:
+                    type: string
+                    format: datetime
+                required:
+                - id
+                - name
+        '404':
+          description: ejemplo no encontrado
+components:
+  schemas: {}
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+servers:
+- url: http://localhost:3000
+  description: Development server
