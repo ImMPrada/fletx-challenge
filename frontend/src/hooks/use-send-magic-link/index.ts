@@ -5,12 +5,13 @@ import { UseSendMagicLinkParams, UseSendMagicLinkResponse, UseSendMagicLinkState
 export const useSendMagicLink = () => {
   const [state, setState] = useState<UseSendMagicLinkState>({
     isLoading: false,
-    error: null,
-    data: null
+    error: false,
+    data: null,
+    sent: false
   });
 
   const sendMagicLink = async (params: UseSendMagicLinkParams) => {
-    setState({ isLoading: true, error: null, data: null });
+    setState({ isLoading: true, error: false, data: null, sent: false });
     
     try {
       const response = await fetch(`${config.apiUrl}/api/v1/magic_links`, {
@@ -22,15 +23,15 @@ export const useSendMagicLink = () => {
       });
 
       if (!response.ok) {
+        setState({ isLoading: false, error: true, data: null, sent: false });
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json() as UseSendMagicLinkResponse;
-      setState({ isLoading: false, error: null, data });
+      setState({ isLoading: false, error: false, data, sent: true });
       return data;
     } catch (error) {
       const errorObject = error instanceof Error ? error : new Error('Error desconocido');
-      setState({ isLoading: false, error: errorObject, data: null });
       throw errorObject;
     }
   };

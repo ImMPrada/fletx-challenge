@@ -10,6 +10,7 @@ export interface UseSendMagicLinkResponse {
 
 export interface UseSendMagicLinkState {
   isLoading: boolean;
-  error: Error | null;
+  error: boolean;
   data: UseSendMagicLinkResponse | null;
+  sent: boolean;
 }

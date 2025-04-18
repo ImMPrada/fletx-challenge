@@ -7,7 +7,7 @@ const Button = ({ label, type, variant, ...props }: ButtonProps) => {
   }
 
   return (
-    <button type={type} className={`${buttonClasses[variant]} px-4 py-2 w-full`} {...props}>
+    <button type={type} className={`${buttonClasses[variant]} px-4 py-2 w-full disabled:bg-white-light disabled:text-navy`} {...props}>
       {label}
     </button>
   )
