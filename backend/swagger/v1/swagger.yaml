@@ -93,6 +93,32 @@ paths:
                 - name
         '404':
           description: ejemplo no encontrado
+  "/api/v1/magic_auths":
+    post:
+      summary: Crea un token de autenticación
+      tags:
+      - Magic Links
+      parameters: []
+      responses:
+        '204':
+          description: token de autenticación creado
+        '401':
+          description: token de autenticación no válido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                magic_link:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+                  required:
+                  - token
+              required:
+              - magic_link
   "/api/v1/magic_links":
     post:
       summary: Crea un magic link
