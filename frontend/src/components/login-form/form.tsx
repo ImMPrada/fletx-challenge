@@ -10,7 +10,7 @@ const Form = ({
   handleSubmit,
 }: FormProps) => {
   return (
-    <div className="flex flex-col gap-4 p-10 bg-white rounded-md">
+    <div className="flex flex-col gap-4 p-10 bg-white rounded-md w-full mx-2 max-w-[500px]">
       <h1 className="text-heading-s font-bold text-navy">Inicia sesión</h1>
 
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
