@@ -31,22 +31,43 @@ RSpec.configure do |config|
               magic_link: {
                 type: :object,
                 properties: {
-                  message: { type: :string }
+                  message: { type: :string, example: "Se ha enviado un enlace mágico a tu correo electrónico" }
                 },
                 required: [ 'message' ]
               }
             },
-            required: [ 'magic_link' ]
+            required: [ 'magic_link' ],
+            description: 'Respuesta enviada cuando se solicita un magic link'
+          },
+          auth_success_response: {
+            type: :object,
+            properties: {
+              success: { type: :boolean, example: true }
+            },
+            required: [ 'success' ],
+            description: 'Respuesta enviada cuando la autenticación es exitosa. El token JWT se envía en los headers y cookies, no en el cuerpo.'
           },
           error_response: {
             type: :object,
-            properties: {
-              errors: {
-                type: :array,
-                items: { type: :string }
+            oneOf: [
+              {
+                properties: {
+                  error: { type: :string, example: "Token expirado" }
+                },
+                required: [ 'error' ]
+              },
+              {
+                properties: {
+                  errors: {
+                    type: :array,
+                    items: { type: :string },
+                    example: [ "Email is invalid" ]
+                  }
+                },
+                required: [ 'errors' ]
               }
-            },
-            required: [ 'errors' ]
+            ],
+            description: 'Respuesta enviada cuando ocurre un error de autenticación o validación'
           }
         },
         securitySchemes: {
@@ -54,6 +75,25 @@ RSpec.configure do |config|
             type: :http,
             scheme: :bearer,
             bearerFormat: 'JWT'
+          },
+          cookie_auth: {
+            type: :apiKey,
+            name: 'jwt',
+            in: :cookie
+          }
+        },
+        headers: {
+          'X-JWT-Token': {
+            description: 'JWT token for authentication',
+            schema: {
+              type: :string
+            }
+          },
+          'Set-Cookie': {
+            description: 'Cookie containing the JWT token',
+            schema: {
+              type: :string
+            }
           }
         }
       },

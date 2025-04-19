@@ -53,6 +53,10 @@ module Backend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Agregar middleware para soporte de cookies y sesiones
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: "_backend_session"
+
     config.middleware.use ActionDispatch::Flash
     config.action_mailer.view_paths = File.join(Rails.root, "app", "views")
   end

@@ -314,7 +314,7 @@ Devise.setup do |config|
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.secret_key_base
     jwt.dispatch_requests = [
-      [ "POST", %r{^/magic_auth$} ]
+      [ "POST", %r{^/api/v1/magic_auths$} ]
     ]
     jwt.revocation_requests = []
     jwt.expiration_time = 2.days.to_i

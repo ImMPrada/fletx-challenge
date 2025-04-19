@@ -1,6 +1,8 @@
 module Api
   module V1
     class MagicLinksController < BaseController
+      skip_before_action :authenticate_user!
+
       def create
         service = MagicLinks::CreateService.new(email)
         token = service.call!
