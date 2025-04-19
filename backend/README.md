@@ -39,6 +39,12 @@ Este proyecto tiene por estrategia de autenticación el uso de Magic Links. Para
 mailcatcher
 ```
 
+En otra terminal inicializa el servidor de jobs:
+
+```bash
+bin/delayed_job run
+```
+
 ### Documentación de la API
 
 Para generar la documentación de la API, siempre que se requiera actualizarla, ejecuta:
