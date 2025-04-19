@@ -1,7 +1,9 @@
 module Api
   module V1
-    class MagicAuthsController < ApplicationController
+    class MagicAuthsController < BaseController
       TOKEN_EXPIRATION_TIME = 2.hours
+
+      skip_before_action :authenticate_user!
 
       def create
         sign_in(user)

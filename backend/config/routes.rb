@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :magic_links, only: [ :create ]
       resources :magic_auths, only: [ :create ]
+      resources :me, only: [ :index ]
     end
   end
 

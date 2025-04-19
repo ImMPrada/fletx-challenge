@@ -20,8 +20,9 @@ export interface User {
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
-  isLoading: boolean;
-  error: boolean;
+  isFetchingAuth: boolean;
+  isError: boolean;
+  requiresAuth: boolean;
   data: UseAuthenticateTokenResponse | null;
 }
 

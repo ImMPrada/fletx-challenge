@@ -2,10 +2,12 @@ module Api
   module V1
     class BaseController < ApplicationController
       include ActionController::Cookies
+      include JwtAuthenticable
 
       rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-      rescue_from MagicLinkErrors::ExpiredToken, with: :render_unauthorized_response
+      rescue_from AuthErrors::Base, MagicLinkErrors::Base, with: :render_unauthorized_response
 
+      before_action :authenticate_user!
 
       private
 
