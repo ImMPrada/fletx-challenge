@@ -29,7 +29,7 @@ module JwtAuthenticable
     auth_header = request.headers["Authorization"]
     return auth_header.split(" ").last if auth_header.present? && auth_header.start_with?("Bearer ")
 
-    request.cookies["jwt"] || request.headers["X-JWT-Token"]
+    request.headers["X-JWT-Token"]
   end
 
   def decode_jwt_token(token)

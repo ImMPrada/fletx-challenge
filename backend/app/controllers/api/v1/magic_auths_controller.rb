@@ -6,16 +6,27 @@ module Api
       skip_before_action :authenticate_user!
 
       def create
-        sign_in(user)
+        token = generate_jwt_token(user)
 
-        sign_cookies
-
-        render json: { success: true }, status: :ok
+        render json: {
+          success: true,
+          token: token
+        }, status: :ok
       rescue => e
         render json: { error: e.message }, status: :unauthorized
       end
 
       private
+
+      def generate_jwt_token(user)
+        payload = {
+          sub: user.id,
+          exp: TOKEN_EXPIRATION_TIME.from_now.to_i
+        }
+        
+        secret = Rails.application.credentials.secret_key_base
+        JWT.encode(payload, secret, 'HS256')
+      end
 
       def record
         @record ||= MagicLinkToken.verify!(magic_link_params[:token])
@@ -27,20 +38,6 @@ module Api
 
       def magic_link_params
         params.require(:magic_link).permit(:token)
-      end
-
-      def sign_cookies
-        token = request.env["warden-jwt_auth.token"]
-
-        token_value = token
-        expires = 2.hours.from_now
-
-        cookie_str = "jwt=#{token_value}; path=/; expires=#{expires.httpdate}; HttpOnly;"
-
-        response.headers["Set-Cookie"] = cookie_str
-        response.headers["X-JWT-Token"] = token
-        response.headers["Authorization"] = "Bearer #{token}"
-        response.headers["Access-Control-Expose-Headers"] = "X-JWT-Token, Set-Cookie, Authorization"
       end
     end
   end

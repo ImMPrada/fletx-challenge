@@ -17,19 +17,6 @@ paths:
       responses:
         '200':
           description: token de autenticación creado
-          headers:
-            X-JWT-Token:
-              schema:
-                type: string
-              description: JWT token para autenticación
-            Authorization:
-              schema:
-                type: string
-              description: Bearer token para autenticación
-            Set-Cookie:
-              schema:
-                type: string
-              description: Cookie con el JWT token
           content:
             application/json:
               schema:
@@ -95,7 +82,7 @@ paths:
         o cuando éste ha expirado.
       security:
       - bearer_auth: []
-      - cookie_auth: []
+      - api_key_auth: []
       responses:
         '200':
           description: información del usuario
@@ -137,10 +124,14 @@ components:
         success:
           type: boolean
           example: true
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiJ9..."
       required:
       - success
+      - token
       description: Respuesta enviada cuando la autenticación es exitosa. El token
-        JWT se envía en los headers y cookies, no en el cuerpo.
+        JWT se envía en el cuerpo de la respuesta.
     error_response:
       type: object
       oneOf:
@@ -165,17 +156,13 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-    cookie_auth:
+    api_key_auth:
       type: apiKey
-      name: jwt
-      in: cookie
+      name: X-JWT-Token
+      in: header
   headers:
     X-JWT-Token:
       description: JWT token for authentication
-      schema:
-        type: string
-    Set-Cookie:
-      description: Cookie containing the JWT token
       schema:
         type: string
 servers:

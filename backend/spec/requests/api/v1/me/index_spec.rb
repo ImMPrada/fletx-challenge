@@ -6,11 +6,11 @@ RSpec.describe 'Me API', type: :request do
       tags 'Perfil'
       produces 'application/json'
       description 'Este endpoint devuelve la información del usuario actualmente autenticado.
-      Requiere un token JWT válido que debe ser enviado en los headers o cookies.'
+      Requiere un token JWT válido que debe ser enviado en los headers.'
 
       security [
         { bearer_auth: [] },
-        { cookie_auth: [] }
+        { api_key_auth: [] }
       ]
 
       response '200', 'información del usuario' do

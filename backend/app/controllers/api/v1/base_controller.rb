@@ -1,7 +1,6 @@
 module Api
   module V1
     class BaseController < ApplicationController
-      include ActionController::Cookies
       include JwtAuthenticable
 
       rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
