@@ -23,7 +23,13 @@ export default {
           light: '#F4F6FA',
         },
         'green': '#26D782',
+        'green-light': '#DFFFEF',
         'red': '#EE5454',
+        'red-light': '#FFEFEF',
+        'yellow': '#FFD700',
+        'yellow-light': '#FFF8E1',
+        'blue': '#007BFF',
+        'blue-light': '#E6F2FF',
       },
       fontFamily: {
         sans: ['Rubik', 'sans-serif'],

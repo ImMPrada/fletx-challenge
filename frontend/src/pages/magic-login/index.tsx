@@ -3,10 +3,11 @@ import { Navigate, useSearchParams } from 'react-router-dom';
 import CenterMidleContainer from '../../templates/center-midle-container';
 import { AuthContext } from '../../contexts/auth-context';
 import { SpinLoading } from 'respinner'
-
+import { FlashContext } from '../../contexts/flash-context';
 const MagicLogin = () => {
   const [searchParams] = useSearchParams();
   const { authenticate, state } = useContext(AuthContext);
+  const { setFlash } = useContext(FlashContext);
 
   useEffect(() => {
     authenticate({ token: searchParams.get('token') || '' });
@@ -21,6 +22,8 @@ const MagicLogin = () => {
   }
 
   if (state.isError) {
+    setFlash(state.data ?? 'Error de autenticación', 'error');
+
     return (
       <CenterMidleContainer>
         <Navigate to="/login" />
