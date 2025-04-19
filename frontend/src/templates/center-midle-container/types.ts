@@ -1,3 +1,3 @@
 export interface CenterMidleContainerProps {
-    children: React.ReactNode
+  children: React.ReactNode;
 }

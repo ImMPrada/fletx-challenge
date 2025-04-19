@@ -12,43 +12,42 @@ const initialState: AuthState = {
   data: null,
 };
 
-
 export const AuthContext = createContext<AuthContextParams>({
   state: initialState,
-  authenticate: () => {}
+  authenticate: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<AuthState>(initialState);
 
   const authenticate = async (params: UseAuthenticateTokenParams) => {
-    setState({...state, isFetchingAuth: true});
-    
+    setState({ ...state, isFetchingAuth: true });
+
     try {
       const response = await fetch(`${config.apiUrl}/api/v1/magic_auths`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           magic_link: {
-            token: params.token
-          }
-         })
+            token: params.token,
+          },
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        setState({ 
+        setState({
           ...state,
           isFetchingAuth: false,
           data: errorData.message || 'Token inválido o expirado',
           isError: true,
           isAuthenticated: false,
-          requiresAuth: true
+          requiresAuth: true,
         });
-  
+
         return;
       }
 
@@ -58,13 +57,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         ...state,
         isFetchingAuth: false,
         data,
-        isAuthenticated: true
+        isAuthenticated: true,
       });
-      
+
       await fetchMe();
     } catch (error) {
       console.error('Error during token authentication:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       throw errorMessage;
     }
   };
@@ -74,33 +74,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await fetch(`${config.apiUrl}/api/v1/me`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         credentials: 'include',
       });
       const data = await response.json();
 
       if (!response.ok) {
-        setState({ ...state, isError: true, isAuthenticated: false, requiresAuth: true });
+        setState({
+          ...state,
+          isError: true,
+          isAuthenticated: false,
+          requiresAuth: true,
+        });
         return;
       }
 
       setState({ ...initialState, user: data, isAuthenticated: true });
     } catch (error) {
       console.error('Error during fetchMe:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       throw errorMessage;
     }
   };
 
   const value: AuthContextParams = {
     state,
-    authenticate
+    authenticate,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
