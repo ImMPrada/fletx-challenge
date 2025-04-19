@@ -93,8 +93,58 @@ paths:
                 - name
         '404':
           description: ejemplo no encontrado
+  "/api/v1/magic_links":
+    post:
+      summary: Crea un magic link
+      tags:
+      - Magic Links
+      parameters: []
+      responses:
+        '200':
+          description: magic link creado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/magic_link_success_response"
+        '422':
+          description: entidad no procesable
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mail:
+                  type: string
+              required:
+              - email
 components:
-  schemas: {}
+  schemas:
+    magic_link_success_response:
+      type: object
+      properties:
+        magic_link:
+          type: object
+          properties:
+            message:
+              type: string
+          required:
+          - message
+      required:
+      - magic_link
+    error_response:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - errors
   securitySchemes:
     bearer_auth:
       type: http
