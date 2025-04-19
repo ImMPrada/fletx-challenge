@@ -1,5 +1,6 @@
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
-  type: "button" | "submit" | "reset";
-  variant: "primary" | "secondary";
+  type: 'button' | 'submit' | 'reset';
+  variant: 'primary' | 'secondary';
 }

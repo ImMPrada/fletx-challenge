@@ -1,6 +1,6 @@
-import { Button } from "../ui";
-import { Input } from "../ui/form-elements"
-import { FormProps } from "./types";
+import { Button } from '../ui';
+import { Input } from '../ui/form-elements';
+import { FormProps } from './types';
 
 const Form = ({
   email,
@@ -8,7 +8,7 @@ const Form = ({
   error,
   handleInputChange,
   handleSubmit,
-}: FormProps) => {  
+}: FormProps) => {
   return (
     <div className="flex flex-col gap-4 p-10 bg-white rounded-md">
       <h1 className="text-heading-s font-bold text-navy">Inicia sesión</h1>
@@ -32,7 +32,7 @@ const Form = ({
         />
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default Form;
