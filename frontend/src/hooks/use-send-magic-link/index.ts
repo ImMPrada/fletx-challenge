@@ -19,6 +19,7 @@ export const useSendMagicLink = () => {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ email: params.email })
       });
 
@@ -29,7 +30,6 @@ export const useSendMagicLink = () => {
 
       const data = await response.json() as UseSendMagicLinkResponse;
       setState({ isLoading: false, error: false, data, sent: true });
-      return data;
     } catch (error) {
       const errorObject = error instanceof Error ? error : new Error('Error desconocido');
       throw errorObject;

@@ -100,10 +100,31 @@ paths:
       - Magic Links
       parameters: []
       responses:
-        '204':
+        '200':
           description: token de autenticación creado
+          headers:
+            X-JWT-Token:
+              schema:
+                type: string
+              description: JWT token para autenticación
+            Authorization:
+              schema:
+                type: string
+              description: Bearer token para autenticación
+            Set-Cookie:
+              schema:
+                type: string
+              description: Cookie con el JWT token
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/auth_success_response"
         '401':
           description: token de autenticación no válido
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
       requestBody:
         content:
           application/json:
@@ -162,20 +183,44 @@ components:
           - message
       required:
       - magic_link
+    auth_success_response:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9...
+      required:
+      - success
+      - token
     error_response:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            type: string
+        error:
+          type: string
+          example: Token expirado
       required:
-      - errors
+      - error
   securitySchemes:
     bearer_auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    cookie_auth:
+      type: apiKey
+      name: jwt
+      in: cookie
+  headers:
+    X-JWT-Token:
+      description: JWT token for authentication
+      schema:
+        type: string
+    Set-Cookie:
+      description: Cookie containing the JWT token
+      schema:
+        type: string
 servers:
 - url: http://localhost:3000
   description: Development server

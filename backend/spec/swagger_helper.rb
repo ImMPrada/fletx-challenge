@@ -38,15 +38,34 @@ RSpec.configure do |config|
             },
             required: [ 'magic_link' ]
           },
-          error_response: {
+          auth_success_response: {
             type: :object,
             properties: {
-              errors: {
-                type: :array,
-                items: { type: :string }
-              }
+              success: { type: :boolean, example: true },
+              token: { type: :string, example: "eyJhbGciOiJIUzI1NiJ9..." }
             },
-            required: [ 'errors' ]
+            required: [ 'success', 'token' ]
+          },
+          error_response: {
+            type: :object,
+            oneOf: [
+              {
+                properties: {
+                  error: { type: :string, example: "Token expirado" }
+                },
+                required: [ 'error' ]
+              },
+              {
+                properties: {
+                  errors: {
+                    type: :array,
+                    items: { type: :string },
+                    example: [ "Email is invalid" ]
+                  }
+                },
+                required: [ 'errors' ]
+              }
+            ]
           }
         },
         securitySchemes: {
@@ -54,6 +73,25 @@ RSpec.configure do |config|
             type: :http,
             scheme: :bearer,
             bearerFormat: 'JWT'
+          },
+          cookie_auth: {
+            type: :apiKey,
+            name: 'jwt',
+            in: :cookie
+          }
+        },
+        headers: {
+          'X-JWT-Token': {
+            description: 'JWT token for authentication',
+            schema: {
+              type: :string
+            }
+          },
+          'Set-Cookie': {
+            description: 'Cookie containing the JWT token',
+            schema: {
+              type: :string
+            }
           }
         }
       },

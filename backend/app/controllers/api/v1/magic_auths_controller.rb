@@ -1,11 +1,14 @@
 module Api
   module V1
     class MagicAuthsController < ApplicationController
+      TOKEN_EXPIRATION_TIME = 2.hours
+
       def create
         sign_in(user)
 
         sign_cookies
-        head :no_content
+
+        render json: { success: true }, status: :ok
       rescue => e
         render json: { error: e.message }, status: :unauthorized
       end
@@ -27,13 +30,14 @@ module Api
       def sign_cookies
         token = request.env["warden-jwt_auth.token"]
 
-        cookies.signed[:jwt] = {
-          value: token,
-          httponly: true,
-          secure: Rails.env.production?,
-          same_site: :lax,
-          expires: 2.hours.from_now
-        }
+        token_value = token
+        expires = 2.hours.from_now
+
+        cookie_str = "jwt=#{token_value}; path=/; expires=#{expires.httpdate}; HttpOnly;"
+
+        response.headers["Set-Cookie"] = cookie_str
+        response.headers["X-JWT-Token"] = token
+        response.headers["Access-Control-Expose-Headers"] = "X-JWT-Token, Set-Cookie"
       end
     end
   end

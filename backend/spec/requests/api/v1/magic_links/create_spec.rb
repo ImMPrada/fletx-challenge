@@ -9,7 +9,7 @@ RSpec.describe 'Example API', type: :request do
       parameter name: :example, in: :body, schema: {
         type: :object,
         properties: {
-          mail: { type: :string }
+          email: { type: :string }
         },
         required: [ 'email' ]
       }
