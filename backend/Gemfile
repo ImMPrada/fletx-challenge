@@ -35,6 +35,9 @@ gem "rswag-ui"
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
+gem "devise"
+gem "devise-jwt"
+
 group :development, :test do
   gem "byebug"
 
@@ -46,6 +49,8 @@ group :development, :test do
   gem "factory_bot_rails", "~> 6.4.0"
   # Swagger spec generation from RSpec tests
   gem "rswag-specs"
+  # Time manipulation for testing
+  gem "timecop", "~> 0.9.6"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false

@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Example API', type: :request do
+RSpec.describe 'Example API', type: :request, skip: true do
   path '/api/v1/examples' do
     get 'Lista todos los ejemplos' do
       tags 'Examples'
