@@ -31,20 +31,21 @@ RSpec.configure do |config|
               magic_link: {
                 type: :object,
                 properties: {
-                  message: { type: :string }
+                  message: { type: :string, example: "Se ha enviado un enlace mágico a tu correo electrónico" }
                 },
                 required: [ 'message' ]
               }
             },
-            required: [ 'magic_link' ]
+            required: [ 'magic_link' ],
+            description: 'Respuesta enviada cuando se solicita un magic link'
           },
           auth_success_response: {
             type: :object,
             properties: {
-              success: { type: :boolean, example: true },
-              token: { type: :string, example: "eyJhbGciOiJIUzI1NiJ9..." }
+              success: { type: :boolean, example: true }
             },
-            required: [ 'success', 'token' ]
+            required: [ 'success' ],
+            description: 'Respuesta enviada cuando la autenticación es exitosa. El token JWT se envía en los headers y cookies, no en el cuerpo.'
           },
           error_response: {
             type: :object,
@@ -65,7 +66,8 @@ RSpec.configure do |config|
                 },
                 required: [ 'errors' ]
               }
-            ]
+            ],
+            description: 'Respuesta enviada cuando ocurre un error de autenticación o validación'
           }
         },
         securitySchemes: {

@@ -39,7 +39,8 @@ module Api
 
         response.headers["Set-Cookie"] = cookie_str
         response.headers["X-JWT-Token"] = token
-        response.headers["Access-Control-Expose-Headers"] = "X-JWT-Token, Set-Cookie"
+        response.headers["Authorization"] = "Bearer #{token}"
+        response.headers["Access-Control-Expose-Headers"] = "X-JWT-Token, Set-Cookie, Authorization"
       end
     end
   end

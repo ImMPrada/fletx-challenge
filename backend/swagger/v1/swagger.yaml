@@ -5,99 +5,14 @@ info:
   version: v1
   description: API documentation for FLETX application
 paths:
-  "/api/v1/examples":
-    get:
-      summary: Lista todos los ejemplos
-      tags:
-      - Examples
-      responses:
-        '200':
-          description: lista de ejemplos encontrada
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    description:
-                      type: string
-                    created_at:
-                      type: string
-                      format: datetime
-                    updated_at:
-                      type: string
-                      format: datetime
-                  required:
-                  - id
-                  - name
-    post:
-      summary: Crea un ejemplo
-      tags:
-      - Examples
-      parameters: []
-      responses:
-        '201':
-          description: ejemplo creado
-        '422':
-          description: entidad no procesable
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                description:
-                  type: string
-              required:
-              - name
-  "/api/v1/examples/{id}":
-    parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-    get:
-      summary: Obtiene un ejemplo
-      tags:
-      - Examples
-      responses:
-        '200':
-          description: ejemplo encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  created_at:
-                    type: string
-                    format: datetime
-                  updated_at:
-                    type: string
-                    format: datetime
-                required:
-                - id
-                - name
-        '404':
-          description: ejemplo no encontrado
   "/api/v1/magic_auths":
     post:
-      summary: Crea un token de autenticación
+      summary: Crea una sesión autenticada usando un token de Magic Link
       tags:
-      - Magic Links
+      - Autenticación
+      description: |-
+        Esta respuesta ocurre cuando el token proporcionado no es válido,
+                ha expirado o ya ha sido utilizado.
       parameters: []
       responses:
         '200':
@@ -136,6 +51,8 @@ paths:
                   properties:
                     token:
                       type: string
+                      description: Token de un solo uso generado previamente mediante
+                        el endpoint de magic_links
                   required:
                   - token
               required:
@@ -165,10 +82,39 @@ paths:
             schema:
               type: object
               properties:
-                mail:
+                email:
                   type: string
               required:
               - email
+  "/api/v1/me":
+    get:
+      summary: Obtiene información del usuario autenticado
+      tags:
+      - Perfil
+      description: Esta respuesta ocurre cuando no se proporciona un token JWT válido
+        o cuando éste ha expirado.
+      security:
+      - bearer_auth: []
+      - cookie_auth: []
+      responses:
+        '200':
+          description: información del usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: usuario@example.com
+                required:
+                - email
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
 components:
   schemas:
     magic_link_success_response:
@@ -179,30 +125,41 @@ components:
           properties:
             message:
               type: string
+              example: Se ha enviado un enlace mágico a tu correo electrónico
           required:
           - message
       required:
       - magic_link
+      description: Respuesta enviada cuando se solicita un magic link
     auth_success_response:
       type: object
       properties:
         success:
           type: boolean
           example: true
-        token:
-          type: string
-          example: eyJhbGciOiJIUzI1NiJ9...
       required:
       - success
-      - token
+      description: Respuesta enviada cuando la autenticación es exitosa. El token
+        JWT se envía en los headers y cookies, no en el cuerpo.
     error_response:
       type: object
-      properties:
-        error:
-          type: string
-          example: Token expirado
-      required:
-      - error
+      oneOf:
+      - properties:
+          error:
+            type: string
+            example: Token expirado
+        required:
+        - error
+      - properties:
+          errors:
+            type: array
+            items:
+              type: string
+            example:
+            - Email is invalid
+        required:
+        - errors
+      description: Respuesta enviada cuando ocurre un error de autenticación o validación
   securitySchemes:
     bearer_auth:
       type: http

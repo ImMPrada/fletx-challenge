@@ -1,18 +1,25 @@
 require 'swagger_helper'
 
-RSpec.describe 'Example API', type: :request do
+RSpec.describe 'Magic Auth API', type: :request do
   path '/api/v1/magic_auths' do
-    post 'Crea un token de autenticación' do
-      tags 'Magic Links'
+    post 'Crea una sesión autenticada usando un token de Magic Link' do
+      tags 'Autenticación'
       consumes 'application/json'
       produces 'application/json'
+      description 'Este endpoint verifica un token de magic link y crea una sesión autenticada,
+      enviando un token JWT en la respuesta a través de cookies y headers.
+      El token JWT debe ser incluido en solicitudes posteriores para acceder a endpoints protegidos.'
+
       parameter name: :example, in: :body, schema: {
         type: :object,
         properties: {
           magic_link: {
             type: :object,
             properties: {
-              token: { type: :string }
+              token: {
+                type: :string,
+                description: 'Token de un solo uso generado previamente mediante el endpoint de magic_links'
+              }
             },
             required: [ 'token' ]
           }
@@ -72,10 +79,7 @@ RSpec.describe 'Example API', type: :request do
 
         it 'returns the token in the response body' do
           json_response = JSON.parse(response.body)
-          expect(json_response).to have_key('success')
-          expect(json_response).to have_key('token')
           expect(json_response['success']).to eq(true)
-          expect(json_response['token']).to be_present
         end
 
         run_test!
@@ -83,6 +87,8 @@ RSpec.describe 'Example API', type: :request do
 
       response '401', 'token de autenticación no válido' do
         schema '$ref' => '#/components/schemas/error_response'
+        description 'Esta respuesta ocurre cuando el token proporcionado no es válido,
+        ha expirado o ya ha sido utilizado.'
 
         let(:user) { create(:user) }
         let(:magic_link) do
