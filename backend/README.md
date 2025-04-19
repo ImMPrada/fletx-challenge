@@ -13,7 +13,7 @@ Para ejecutar este proyecto necesitas:
 
 ### Instalación de dependencias
 
-Primero, instala y ejecuta PostgreSQL:
+Primero, instala y ejecuta PostgreSQL; en macOS:
 
 ```bash
 brew install postgresql
@@ -31,6 +31,12 @@ Inicia el servidor de desarrollo:
 
 ```bash
 rails s
+```
+
+Este proyecto tiene por estrategia de autenticación el uso de Magic Links. Para recibir un correo electrónico con un enlace para iniciar sesión, necesitamos mailcatcher ([para instalarlo](https://mailcatcher.me/)) ejecutando:
+
+```bash
+mailcatcher
 ```
 
 ### Documentación de la API
