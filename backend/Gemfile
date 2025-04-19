@@ -68,3 +68,5 @@ group :development, :test do
   # Faker for test data generation
   gem "faker"
 end
+
+gem "mailtrap", "~> 2.3"

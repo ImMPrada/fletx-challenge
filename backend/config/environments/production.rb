@@ -55,7 +55,11 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+
+  config.action_mailer.delivery_method = :mailtrap
+  config.action_mailer.mailtrap_settings = {
+    api_key: ENV.fetch("MAILTRAP_API_KEY")
+  }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
