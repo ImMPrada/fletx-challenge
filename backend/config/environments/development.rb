@@ -39,10 +39,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: "localhost", port: 1080 }
   config.action_mailer.smtp_settings = {
-    address: ENV["SMTP_ADDRESS"] || "localhost",
-    port: ENV["SMTP_PORT"] || 1025,
-    domain: ENV["SMTP_DOMAIN"] || "localhost",
-    authentication: nil  # Desactiva la autenticación para desarrollo
+    address: ENV.fetch("SMTP_ADDRESS"),
+    port: ENV.fetch("SMTP_PORT"),
+    authentication: nil
   }
 
   # Print deprecation notices to the Rails logger.

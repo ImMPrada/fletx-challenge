@@ -56,9 +56,12 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
 
-  config.action_mailer.delivery_method = :mailtrap
-  config.action_mailer.mailtrap_settings = {
-    api_key: ENV.fetch("MAILTRAP_API_KEY")
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("SMTP_ADDRESS"),
+    port: ENV.fetch("SMTP_PORT"),
+    user_name: ENV.fetch("SMTP_USERNAME"),
+    password: ENV.fetch("SMTP_PASSWORD")
   }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
