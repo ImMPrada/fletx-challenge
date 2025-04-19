@@ -18,12 +18,10 @@ export interface User {
 }
 
 export interface AuthState {
-  user: User | null;
   isAuthenticated: boolean;
-  isFetchingAuth: boolean;
+  isFetching: boolean;
   isError: boolean;
-  requiresAuth: boolean;
-  data: UseAuthenticateTokenResponse | null;
+  data: string | null;
 }
 
 export interface AuthContextParams {
