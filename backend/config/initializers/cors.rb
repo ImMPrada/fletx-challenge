@@ -7,11 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV["FRONTEND_URL"] || "http://localhost:5173",
-            "http://localhost:3000", "https://localhost:3000",
-            "http://localhost", "https://localhost",
-            "http://localhost:8080", "https://localhost:8080",
-            "postman-echo.com", "https://postman-echo.com"
+    origins ENV["FRONTEND_URL"]
 
     resource "*",
       headers: :any,

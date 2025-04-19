@@ -70,3 +70,5 @@ group :development, :test do
 end
 
 gem "mailtrap", "~> 2.3"
+
+gem "dockerfile-rails", ">= 1.7", :group => :development
