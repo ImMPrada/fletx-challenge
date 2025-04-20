@@ -33,6 +33,12 @@ Crea los departamentos y ciudades:
 bundle exec rake departments:create
 ```
 
+Estamos usando semillas para popular la base de datos con datos de ejemplos.
+
+```bash
+rails db:seed
+```
+
 Inicia el servidor de desarrollo:
 
 ```bash

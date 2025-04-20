@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_114543) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_20_123334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,6 +21,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_114543) do
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_cities_on_department_id"
     t.index ["name", "department_id"], name: "index_cities_on_name_and_department_id", unique: true
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "category", null: false
+    t.string "phone_number", null: false
+    t.string "address", null: false
+    t.decimal "assets", precision: 15, scale: 2, null: false
+    t.decimal "liabilities", precision: 15, scale: 2, null: false
+    t.bigint "department_id", null: false
+    t.bigint "city_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_companies_on_city_id"
+    t.index ["department_id"], name: "index_companies_on_department_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -68,5 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_114543) do
   end
 
   add_foreign_key "cities", "departments"
+  add_foreign_key "companies", "cities"
+  add_foreign_key "companies", "departments"
   add_foreign_key "magic_link_tokens", "users"
 end
