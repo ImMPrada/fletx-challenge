@@ -5,5 +5,13 @@ class User < ApplicationRecord
 
   has_many :magic_link_tokens, dependent: :destroy
 
+  belongs_to :role
+
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def can?(feature_code)
+    return false if role.blank?
+
+    role.features.where(code: feature_code).exists?
+  end
 end
