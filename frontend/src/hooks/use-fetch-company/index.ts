@@ -22,11 +22,15 @@ export const useFetchCompany = (): UseFetchCompanyReturn => {
     const response = await fetchData<ApiResponse>(`/api/v1/companies/${id}`, {}, true);
     
     if (response.status === 404) {
-      throw new Error('Empresa no encontrada');
+      setError('Empresa no encontrada');
+      setIsLoading(false);
+      return;
     }
     
     if (response.status === 403) {
-      throw new Error('No tienes permiso para ver esta empresa');
+      setError('No tienes permiso para ver esta empresa');
+      setIsLoading(false);
+      return;
     }
     
     setCompany(response.data || null);
