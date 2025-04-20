@@ -2,7 +2,7 @@ module Api
   module V1
     class CompaniesController < BaseController
       def index
-        @companies = Company.all
+        @companies = Company.includes(:city, :department).order(created_at: :desc)
         authorize @companies
       end
 
@@ -15,6 +15,13 @@ module Api
         authorize Company
 
         service = Companies::CreateService.new(company_params)
+        @company = service.call!
+      end
+
+      def update
+        authorize Company
+
+        service = Companies::UpdateService.new(company_params, params[:id])
         @company = service.call!
       end
 

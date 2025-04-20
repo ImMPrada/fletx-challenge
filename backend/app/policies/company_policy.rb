@@ -11,6 +11,10 @@ class CompanyPolicy < ApplicationPolicy
     user.can?("companies.read")
   end
 
+  def update?
+    user.can?("companies.update")
+  end
+
   class Scope < Scope
     def resolve
       return scope.none unless user.can?("companies.list")
