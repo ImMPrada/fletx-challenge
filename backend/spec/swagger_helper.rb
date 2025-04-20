@@ -96,6 +96,56 @@ RSpec.configure do |config|
             type: :array,
             items: { '$ref' => '#/components/schemas/department' },
             description: 'Lista de departamentos con sus ciudades asociadas'
+          },
+          company: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              name: { type: :string, example: 'FLETX Inc.' },
+              category: { type: :string, example: 'Transporte' },
+              address: { type: :string, example: 'Calle Principal 123' },
+              phone_number: { type: :string, example: '3001234567' },
+              assets: { type: :string, example: '100000.0' },
+              liabilities: { type: :string, example: '50000.0' },
+              department: {
+                type: :object,
+                nullable: true,
+                properties: {
+                  id: { type: :integer },
+                  name: { type: :string }
+                }
+              },
+              city: {
+                type: :object,
+                nullable: true,
+                properties: {
+                  id: { type: :integer },
+                  name: { type: :string }
+                }
+              }
+            },
+            required: [ 'id', 'name', 'category', 'address', 'phone_number', 'assets', 'liabilities' ],
+            description: 'Información completa de una empresa'
+          },
+          company_request: {
+            type: :object,
+            properties: {
+              company: {
+                type: :object,
+                properties: {
+                  name: { type: :string, example: 'FLETX Inc.' },
+                  category: { type: :string, example: 'Transporte' },
+                  address: { type: :string, example: 'Calle Principal 123' },
+                  phone_number: { type: :string, example: '3001234567' },
+                  assets: { type: :number, format: :float, example: 100000.0 },
+                  liabilities: { type: :number, format: :float, example: 50000.0 },
+                  city_id: { type: :integer, example: 1 }
+                },
+                required: [ 'name', 'category', 'address', 'phone_number', 'assets', 'liabilities', 'city_id' ]
+              }
+            },
+            required: [ 'company' ],
+            description: 'Solicitud para crear una nueva empresa'
           }
         },
         securitySchemes: {
