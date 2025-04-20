@@ -10,5 +10,6 @@ RSpec.describe Department, type: :model do
 
   describe "associations" do
     it { is_expected.to have_many(:cities).dependent(:destroy) }
+    it { is_expected.to have_many(:companies).dependent(:nullify) }
   end
 end

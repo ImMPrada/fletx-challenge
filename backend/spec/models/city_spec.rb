@@ -10,5 +10,6 @@ RSpec.describe City, type: :model do
 
   describe "associations" do
     it { is_expected.to belong_to(:department) }
+    it { is_expected.to have_many(:companies).dependent(:nullify) }
   end
 end
