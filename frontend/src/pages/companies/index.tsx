@@ -14,6 +14,7 @@ const Companies = () => {
   
   useEffect(() => {
     checkFeature(FEATURES.LIST_COMPANIES);
+   
   }, []); 
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Companies = () => {
       setFlash('No tienes permisos para listar empresas', 'warning');
       navigate('/');
     }
-  }, [canListCompanies]);
+  }, [canListCompanies, navigate, setFlash]);
 
   if (isCheckingFeature) {
     return (

@@ -1,21 +1,16 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, useCallback } from 'react';
 import { DepartmentsContextParams, DepartmentsType } from './types';
 import { config } from '../../config';
+import { DepartmentsContext } from './context';
 
-
-export const DepartmentsContext = createContext<DepartmentsContextParams>({
-  departments: [],
-  getCities: () => [],
-  isFetchingDepartments: false,
-  isFetchingCities: false,
-});
+export { DepartmentsContext } from './context';
 
 export const DepartmentsProvider = ({ children }: { children: ReactNode }) => {
   const [isFetchingDepartments, setIsFetchingDepartments] = useState(false);
   const [isFetchingCities, setIsFetchingCities] = useState(false);
   const [departments, setDepartments] = useState<DepartmentsType[]>([]);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     setIsFetchingDepartments(true);
     if(departments.length > 0) return;
 
@@ -23,7 +18,8 @@ export const DepartmentsProvider = ({ children }: { children: ReactNode }) => {
     const data = await response.json();
     setDepartments(data);
     setIsFetchingDepartments(false);
-  };
+   
+  }, []);
   
   const getCities = (departmentId: number) => {
     setIsFetchingCities(true);
@@ -35,7 +31,7 @@ export const DepartmentsProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     fetchDepartments();
-  }, []);
+  }, [fetchDepartments]);
 
   const value: DepartmentsContextParams = {
     departments,

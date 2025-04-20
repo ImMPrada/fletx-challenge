@@ -14,6 +14,7 @@ const NewCompany = () => {
   
   useEffect(() => {
     checkFeature(FEATURES.CREATE_COMPANY);
+   
   }, []); 
 
   useEffect(() => {
@@ -21,9 +22,9 @@ const NewCompany = () => {
 
     if (!canCreateCompany) {
       setFlash('No tienes permisos para crear una empresa', 'warning');
-      navigate(-1);
+      navigate('/');
     }
-  }, [canCreateCompany]);
+  }, [canCreateCompany, navigate, setFlash]);
 
   if (isCheckingFeature) {
     return (
