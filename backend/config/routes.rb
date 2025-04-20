@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :magic_auths, only: [ :create ]
       resources :me, only: [ :index ]
       resources :departments, only: [ :index ]
-      resources :companies, only: [ :create ]
+      resources :companies, only: [ :index, :create ]
       resources :check_feature, only: [ :index ]
     end
   end
