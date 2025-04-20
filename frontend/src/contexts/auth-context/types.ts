@@ -1,5 +1,5 @@
 export interface UseAuthenticateTokenParams {
-  token: string;
+  token?: string;
 }
 
 export interface UseAuthenticateTokenResponse {

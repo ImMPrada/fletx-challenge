@@ -6,10 +6,11 @@ import { AuthContext } from '../../contexts/auth-context';
 export const useProtectRoute = () => {
   const navigate = useNavigate();
   const { setFlash } = useContext(FlashContext);
-  const { state } = useContext(AuthContext);
+  const { state, authenticate } = useContext(AuthContext);
 
   // Verificar si el contexto de autenticación indica que el usuario está autenticado
-  const verifyAuthentication = (): boolean => {
+  const verifyAuthentication = async (): Promise<boolean> => {
+    await authenticate({});
     return state.isAuthenticated;
   };
 

@@ -1,14 +1,17 @@
-import CenterMidleContainer from '../../templates/center-midle-container';
+import ContainerWithFloatingNavbar from '../../templates/container-with-floating-navbar';
 import { useProtectRoute } from '../../hooks/use-protect-route';
 import Profile from '../../components/profile';
+import CenterMidleContainer from '../../templates/center-midle-container';
 
 const ProfilePage = () => {
   useProtectRoute();
 
   return (
-    <CenterMidleContainer>
-      <Profile />
-    </CenterMidleContainer>
+    <ContainerWithFloatingNavbar>
+      <CenterMidleContainer>
+        <Profile />
+      </CenterMidleContainer>
+    </ContainerWithFloatingNavbar>
   );
 };
 
