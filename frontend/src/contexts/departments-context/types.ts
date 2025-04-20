@@ -12,8 +12,7 @@ export interface CitiesType {
 
 export interface DepartmentsContextParams {
   departments: DepartmentsType[];
-  cities: CitiesType[];
-  getCities: (departmentId: number) => void;
+  getCities: (departmentId: number) => CitiesType[];
   isFetchingDepartments: boolean;
   isFetchingCities: boolean;
 }

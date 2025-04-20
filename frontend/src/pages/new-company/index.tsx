@@ -1,56 +1,12 @@
 import CenterContainer from '../../templates/center-container';
 import ContainerWithFloatingNavbar from '../../templates/container-with-floating-navbar';
+import CompanyForm from '../../components/company-form';
 
 const NewCompany = () => {
   return (
     <ContainerWithFloatingNavbar>
       <CenterContainer>
-        <div className="flex flex-col items-center justify-center">
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-          <h1>New Company</h1>
-        </div>
+        <CompanyForm />
       </CenterContainer>
     </ContainerWithFloatingNavbar>
   );
