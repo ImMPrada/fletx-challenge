@@ -1,6 +1,10 @@
 require 'swagger_helper'
 
 RSpec.describe 'Example API', type: :request do
+  before(:each) do
+    ensure_visitor_role_exists
+  end
+
   path '/api/v1/magic_links' do
     post 'Crea un magic link' do
       tags 'Magic Links'

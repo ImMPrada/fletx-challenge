@@ -1,7 +1,10 @@
-
 require "rails_helper"
 
-RSpec.describe MagicLinks::CreateService do
+RSpec.describe MagicLinks::CreateService, type: :service do
+  before(:each) do
+    ensure_visitor_role_exists
+  end
+
   describe "#call!" do
     context "when the email does not exist" do
       let(:email) { "test@example.com" }

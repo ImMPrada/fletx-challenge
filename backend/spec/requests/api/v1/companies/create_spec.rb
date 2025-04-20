@@ -20,7 +20,7 @@ RSpec.describe 'Companies API', type: :request do
       response '200', 'empresa creada' do
         schema '$ref' => '#/components/schemas/company'
 
-        let(:user) { create(:user) }
+        let(:user) { create_user_with_features("companies.create", role_code: "admin") }
         let(:city) { create(:city) }
         let(:Authorization) { "Bearer #{generate_jwt_token_for(user)}" }
         let(:company_params) do
@@ -61,11 +61,35 @@ RSpec.describe 'Companies API', type: :request do
         run_test!
       end
 
+      response '403', 'sin autorización para esta acción' do
+        schema '$ref' => '#/components/schemas/error_response'
+        description 'Esta respuesta ocurre cuando el usuario autenticado no tiene permiso para crear empresas.'
+
+        let(:user) { create_user_with_features(role_code: "user") } # Un rol sin el feature companies.create
+        let(:city) { create(:city) }
+        let(:Authorization) { "Bearer #{generate_jwt_token_for(user)}" }
+        let(:company_params) do
+          {
+            company: {
+              name: 'FLETX Inc.',
+              category: 'Transporte',
+              address: 'Calle Principal 123',
+              phone_number: '3001234567',
+              assets: 100000.0,
+              liabilities: 50000.0,
+              city_id: city.id
+            }
+          }
+        end
+
+        run_test!
+      end
+
       response '404', 'ciudad no encontrada' do
         schema '$ref' => '#/components/schemas/error_response'
         description 'Esta respuesta ocurre cuando la ciudad especificada no existe.'
 
-        let(:user) { create(:user) }
+        let(:user) { create_user_with_features("companies.create", role_code: "admin") }
         let(:Authorization) { "Bearer #{generate_jwt_token_for(user)}" }
         let(:company_params) do
           {
@@ -88,7 +112,7 @@ RSpec.describe 'Companies API', type: :request do
         schema '$ref' => '#/components/schemas/error_response'
         description 'Esta respuesta ocurre cuando los datos proporcionados no son válidos para crear una empresa.'
 
-        let(:user) { create(:user) }
+        let(:user) { create_user_with_features("companies.create", role_code: "admin") }
         let(:city) { create(:city) }
         let(:Authorization) { "Bearer #{generate_jwt_token_for(user)}" }
         let(:company_params) do

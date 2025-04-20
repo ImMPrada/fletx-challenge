@@ -1,0 +1,10 @@
+- code: companies.create
+  description: Create companies
+- code: companies.read
+  description: Read companies
+- code: companies.update
+  description: Update companies
+- code: companies.delete
+  description: Delete companies
+- code: companies.list
+  description: List companies

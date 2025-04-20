@@ -1,0 +1,14 @@
+- code: admin
+  description: all permissions
+  features:
+    - companies.create
+    - companies.read
+    - companies.update
+    - companies.delete
+    - companies.list
+- code: visitor
+  description: it doesn't have RU (of CRUD) permissions
+  features:
+    - companies.read
+    - companies.list
+
