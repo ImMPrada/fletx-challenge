@@ -1,6 +1,7 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { CompanyFormAction, CompanyFormState } from './types';
 import { companyFormReducer, initialState } from './reducer';
+import { Company } from '../../hooks/use-fetch-company/types';
 
 interface UseCompanyFormResult {
   formState: CompanyFormState;
@@ -9,8 +10,28 @@ interface UseCompanyFormResult {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>, onSubmit: (data: Omit<CompanyFormState, 'errors'>) => void) => void;
 }
 
-export function useCompanyForm(): UseCompanyFormResult {
+export function useCompanyForm(initialData?: Company | null): UseCompanyFormResult {
   const [formState, dispatch] = useReducer(companyFormReducer, initialState);
+
+  // Llenar el formulario con datos iniciales si existen
+  useEffect(() => {
+    if (initialData) {
+      // Establecer los valores iniciales
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'name', value: initialData.name });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'address', value: initialData.address });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'phoneNumber', value: initialData.phone_number });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'category', value: initialData.category });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'assets', value: initialData.assets.toString() });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'liabilities', value: initialData.liabilities.toString() });
+      
+      if (initialData.department) {
+        dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'department', value: initialData.department.id.toString() });
+      }
+      if (initialData.city) {
+        dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'city', value: initialData.city.id.toString() });
+      }
+    }
+  }, [initialData]);
 
   const isValidDecimalNumber = (value: string): boolean => {
     // Acepta números enteros o decimales con punto como separador

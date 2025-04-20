@@ -11,7 +11,8 @@ const Form = ({
   formState,
   dispatch,
   handleSubmit,
-  isLoading
+  isLoading,
+  mode = 'create'
 }: FormProps) => {
   const { departments, getCities } = useContext(DepartmentsContext);
   const [cities, setCities] = useState<CitiesType[]>([]);
@@ -48,7 +49,9 @@ const Form = ({
 
   return (
     <div className="flex flex-col gap-8 p-10 bg-white rounded-md w-full mx-2 max-w-[700px]">
-      <h1 className="text-heading-s font-bold text-navy">Información de la empresa</h1>
+      <h1 className="text-heading-s font-bold text-navy">
+        {mode === 'create' ? 'Información de la empresa' : 'Editar información de la empresa'}
+      </h1>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
@@ -158,7 +161,7 @@ const Form = ({
           <Loading/>
         ) : (
           <Button
-            label="Guardar información"
+            label={mode === 'create' ? "Guardar información" : "Actualizar información"}
             type="submit"
             variant="primary"
           />

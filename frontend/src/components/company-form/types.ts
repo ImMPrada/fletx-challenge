@@ -29,4 +29,5 @@ export interface FormProps {
   dispatch: React.Dispatch<CompanyFormAction>;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isLoading: boolean;
+  mode?: 'create' | 'edit';
 }

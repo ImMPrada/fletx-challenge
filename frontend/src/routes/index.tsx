@@ -5,6 +5,7 @@ import ProfilePage from '../pages/profile';
 import NewCompany from '../pages/new-company';
 import Companies from '../pages/companies';
 import CompanyPage from '../pages/company-page';
+import EditCompany from '../pages/edit-company';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
       <Route path="/companies" element={<Companies />} />
       <Route path="/companies/:id" element={<CompanyPage />} />
       <Route path="/companies/new" element={<NewCompany />} />
+      <Route path="/companies/:id/edit" element={<EditCompany />} />
     </Routes>
   );
 };
