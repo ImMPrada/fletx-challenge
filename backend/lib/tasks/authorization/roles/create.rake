@@ -17,8 +17,9 @@ namespace :authorization do
           r.save!
         end
 
+        created_role.role_features.destroy_all
+
         role["features"].each do |feature|
-          created_role.role_features.destroy_all
           created_role.role_features.create!(feature: Feature.find_by(code: feature))
 
           table.add_row([ created_role.code, created_role.description, feature ])
