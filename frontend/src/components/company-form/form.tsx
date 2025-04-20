@@ -5,11 +5,13 @@ import { Input, Select } from '../ui/form-elements';
 import { FormProps } from './types';
 import { DepartmentsContext } from '../../contexts/departments-context';
 import { CitiesType } from '../../contexts/departments-context/types';
+import Loading from '../loading';
 
 const Form = ({
   formState,
   dispatch,
   handleSubmit,
+  isLoading
 }: FormProps) => {
   const { departments, getCities } = useContext(DepartmentsContext);
   const [cities, setCities] = useState<CitiesType[]>([]);
@@ -151,11 +153,15 @@ const Form = ({
           </div>
         </div>
 
-        <Button
-          label="Guardar información"
-          type="submit"
-          variant="primary"
-        />
+        {isLoading ? (
+          <Loading/>
+        ) : (
+          <Button
+            label="Guardar información"
+            type="submit"
+            variant="primary"
+          />
+        )}
       </form>
     </div>
   );

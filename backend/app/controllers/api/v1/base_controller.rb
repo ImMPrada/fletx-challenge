@@ -14,7 +14,7 @@ module Api
       private
 
       def render_unprocessable_entity_response(exception)
-        render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: exception.record.errors }, status: :unprocessable_entity
       end
 
       def render_unauthorized_response(exception)

@@ -28,4 +28,5 @@ export interface FormProps {
   formState: CompanyFormState;
   dispatch: React.Dispatch<CompanyFormAction>;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
 }
