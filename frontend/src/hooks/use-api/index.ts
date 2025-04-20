@@ -6,9 +6,10 @@ import { useContext } from 'react';
 
 export const useApi = (): UseApiReturn => {
   const { setFlash } = useContext(FlashContext);
+
   const navigate = useNavigate();
 
-  const fetchData = async <T>(endpoint: string, options: RequestOptions = {}): Promise<T> => {
+  const fetchData = async <T>(endpoint: string, options: RequestOptions = {}, formatedResponse: boolean = false): Promise<T> => {
     const token = sessionStorage.getItem('jwt');
     
     const headers: Record<string, string> = {
@@ -32,23 +33,37 @@ export const useApi = (): UseApiReturn => {
 
     try {
       const response = await fetch(`${config.apiUrl}${endpoint}`, fetchOptions);
+      
+      // Leemos el cuerpo de la respuesta una sola vez
+      const responseData = await response.json();
 
+      console.log(responseData);
+
+      // Agregamos el status a los datos para poder manejarlo fácilmente
+      let result;
+
+      if (formatedResponse) {
+        result = {
+          data: responseData,
+          status: response.status
+        };
+      } else {
+        result = {
+          ...responseData,
+          status: response.status
+        };
+      }
+
+      // Manejamos el caso de sesión expirada
       if (response.status === 401) {
         sessionStorage.removeItem('jwt');
         setFlash('Sesión expirada o token inválido', 'error');
         navigate('/login');
-
-        throw new Error('Sesión expirada o token inválido');
       }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Ha ocurrido un error');
-      }
-
-      return await response.json() as T;
+      return result as T;
     } catch (error) {
-      console.error('Error en la petición:', error);
+      console.error('Error en fetchData:', error);
       throw error;
     }
   };

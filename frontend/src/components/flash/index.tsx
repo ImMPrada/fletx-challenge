@@ -38,7 +38,7 @@ const Flash = ({ children }: { children: ReactNode }) => {
 
       {message && (
         <div
-          className={`hover:cursor-pointer absolute w-full h-auto top-0 left-0 px-4 py-2 flex justify-center items-center ${setColor()}`}
+          className={`hover:cursor-pointer absolute w-full h-auto top-0 left-0 z-20 px-4 py-2 flex justify-center items-center ${setColor()}`}
           onClick={handleClick}
         >
           <p className="text-body-m font-bold text-center font-sans">{message}</p>

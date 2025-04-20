@@ -1,6 +1,11 @@
 module Api
   module V1
     class CompaniesController < BaseController
+      def index
+        @companies = Company.all
+        authorize @companies
+      end
+
       def create
         authorize Company
 

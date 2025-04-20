@@ -66,6 +66,19 @@ RSpec.configure do |config|
                   }
                 },
                 required: [ 'errors' ]
+              },
+              {
+                properties: {
+                  errors: {
+                    type: :object,
+                    additionalProperties: {
+                      type: :array,
+                      items: { type: :string }
+                    },
+                    example: { "name": [ "can't be blank" ] }
+                  }
+                },
+                required: [ 'errors' ]
               }
             ],
             description: 'Respuesta enviada cuando ocurre un error de autenticación o validación'
