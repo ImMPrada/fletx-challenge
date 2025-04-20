@@ -2,6 +2,8 @@ module Api
   module V1
     class CompaniesController < BaseController
       def create
+        authorize Company
+
         service = Companies::CreateService.new(company_params)
         @company = service.call!
       end

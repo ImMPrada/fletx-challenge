@@ -9,7 +9,7 @@ module Authorizable
   private
 
   def user_not_authorized
-    render json: { message: "Not authorized" }, status: :forbidden
+    render json: { error: "Not authorized" }, status: :forbidden
   end
 
   # This is a hack to be able to pass the params and request objects to the policies and policy scopes.

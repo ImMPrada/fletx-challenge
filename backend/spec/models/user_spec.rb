@@ -7,12 +7,15 @@ RSpec.describe User, type: :model do
   end
 
   describe '#can?' do
-    let(:features) { create_list(:feature, 3) }
+    let(:feature1) { create(:feature, code: "feature_test_1") }
+    let(:feature2) { create(:feature, code: "feature_test_2") }
+    let(:feature3) { create(:feature, code: "feature_test_3") }
+    let(:features) { [ feature1, feature2, feature3 ] }
     let(:role) { create(:role, features: features) }
     let(:user) { create(:user, role: role) }
 
     it 'returns true if the user has the feature' do
-      expect(user.can?(features.first.code)).to be_truthy
+      expect(user.can?(feature1.code)).to be_truthy
     end
 
     context 'when the user does not have the feature' do
