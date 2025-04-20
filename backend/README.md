@@ -27,6 +27,12 @@ rails db:create
 rails db:migrate
 ```
 
+Crea los departamentos y ciudades:
+
+```bash
+bundle exec rake departments:create
+```
+
 Inicia el servidor de desarrollo:
 
 ```bash

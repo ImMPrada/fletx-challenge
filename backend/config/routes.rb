@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :magic_links, only: [ :create ]
       resources :magic_auths, only: [ :create ]
       resources :me, only: [ :index ]
+      resources :departments, only: [ :index ]
     end
   end
 

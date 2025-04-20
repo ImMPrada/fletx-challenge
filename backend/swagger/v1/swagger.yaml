@@ -5,6 +5,20 @@ info:
   version: v1
   description: API documentation for FLETX application
 paths:
+  "/api/v1/departments":
+    get:
+      summary: Obtiene listado de departamentos
+      tags:
+      - Departamentos
+      description: Este endpoint devuelve el listado de todos los departamentos con
+        sus ciudades asociadas.
+      responses:
+        '200':
+          description: listado de departamentos
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/departments_response"
   "/api/v1/magic_auths":
     post:
       summary: Crea una sesión autenticada usando un token de Magic Link
@@ -126,7 +140,7 @@ components:
           example: true
         token:
           type: string
-          example: "eyJhbGciOiJIUzI1NiJ9..."
+          example: eyJhbGciOiJIUzI1NiJ9...
       required:
       - success
       - token
@@ -151,6 +165,42 @@ components:
         required:
         - errors
       description: Respuesta enviada cuando ocurre un error de autenticación o validación
+    city:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Medellín
+      required:
+      - id
+      - name
+      description: Información básica de una ciudad
+    department:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Antioquia
+        cities:
+          type: array
+          items:
+            "$ref": "#/components/schemas/city"
+      required:
+      - id
+      - name
+      - cities
+      description: Información de un departamento con sus ciudades asociadas
+    departments_response:
+      type: array
+      items:
+        "$ref": "#/components/schemas/department"
+      description: Lista de departamentos con sus ciudades asociadas
   securitySchemes:
     bearer_auth:
       type: http
