@@ -5,7 +5,7 @@ const Button = ({ label, type, variant, ...props }: ButtonProps) => {
     primary:
       'bg-purple text-white rounded-md hover:bg-purple-light hover:text-purple hover:border-purple-light hover:border hover:border-purple-light',
     secondary:
-      'bg-white text-purple rounded-md border border-purple hover:bg-purple hover:text-white hover:border-purple-light',
+      'bg-purple-light text-purple rounded-md border border-purple hover:bg-purple hover:text-white hover:border-purple',
   };
 
   return (

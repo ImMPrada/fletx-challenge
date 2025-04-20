@@ -32,6 +32,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
+    if (!params.token) {
+      setState({
+        ...state,
+        isFetching: false,
+        data: 'Token inválido o expirado',
+        isError: true,
+        isAuthenticated: false,
+      });
+
+      return;
+    }
+
     const response = await fetch(`${config.apiUrl}/api/v1/magic_auths`, {
       method: 'POST',
       headers: {
