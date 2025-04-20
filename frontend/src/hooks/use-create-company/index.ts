@@ -27,10 +27,17 @@ export function useCreateCompany(): UseCreateCompanyReturn {
 
     try {
       // Realizamos la petición usando useApi
-      const response = await fetchData<ApiResponse<CompanyResponse>>('/api/v1/companies', {
+      const fetchResponse = await fetchData<ApiResponse<CompanyResponse>>('/api/v1/companies', {
         method: 'POST',
         body: data as Record<string, unknown>
       });
+
+      const responseData = fetchResponse.data;
+
+      const response = {
+        status: fetchResponse.status,
+        ...responseData
+      };
 
       // Verificamos si la respuesta contiene un indicador de error
       if (response.status && response.status >= 400) {

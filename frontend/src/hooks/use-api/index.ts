@@ -9,7 +9,7 @@ export const useApi = (): UseApiReturn => {
 
   const navigate = useNavigate();
 
-  const fetchData = async <T>(endpoint: string, options: RequestOptions = {}): Promise<T> => {
+  const fetchData = async <T>(endpoint: string, options: RequestOptions = {}, formatedResponse: boolean = false): Promise<T> => {
     const token = sessionStorage.getItem('jwt');
     
     const headers: Record<string, string> = {
@@ -36,12 +36,23 @@ export const useApi = (): UseApiReturn => {
       
       // Leemos el cuerpo de la respuesta una sola vez
       const responseData = await response.json();
-      
+
+      console.log(responseData);
+
       // Agregamos el status a los datos para poder manejarlo fácilmente
-      const result = {
-        ...responseData,
-        status: response.status
-      };
+      let result;
+
+      if (formatedResponse) {
+        result = {
+          data: responseData,
+          status: response.status
+        };
+      } else {
+        result = {
+          ...responseData,
+          status: response.status
+        };
+      }
 
       // Manejamos el caso de sesión expirada
       if (response.status === 401) {
