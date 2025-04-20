@@ -1,13 +1,8 @@
-import { createContext, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { FlashContextParams, FlashType } from './types';
+import { FlashContext } from './context';
 
-
-export const FlashContext = createContext<FlashContextParams>({
-  message: '',
-  type: null,
-  blankFlash: () => {},
-  setFlash: () => {},
-});
+export { FlashContext } from './context';
 
 export const FlashProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState('');

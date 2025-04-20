@@ -43,6 +43,7 @@ const Form = ({
     }
 
     setCities([]);
+   
   }, [formState.department]);
 
   return (

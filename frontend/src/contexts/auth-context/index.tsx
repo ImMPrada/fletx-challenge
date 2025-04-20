@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { AuthState, AuthContextParams, UseAuthenticateTokenParams, UseAuthenticateTokenResponse } from './types';
 import { config } from '../../config';
+import { AuthContext } from './context';
 
 const initialState: AuthState = {
   isAuthenticated: false,
@@ -9,10 +10,7 @@ const initialState: AuthState = {
   data: null,
 };
 
-export const AuthContext = createContext<AuthContextParams>({
-  state: initialState,
-  authenticate: () => {},
-});
+export { AuthContext } from './context';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<AuthState>(initialState);

@@ -3,6 +3,7 @@ import { useCompanyForm } from './use-company-form';
 import { useCreateCompany } from '../../hooks/use-create-company';
 import { useEffect, useState, useContext } from 'react';
 import { FlashContext } from '../../contexts/flash-context';
+import { useNavigate } from 'react-router-dom';
 
 
 const CompanyForm = () => {
@@ -11,11 +12,11 @@ const CompanyForm = () => {
   const { 
     createCompany, 
     isSuccess, 
-    error, 
     validationErrors, 
     isLoading
   } = useCreateCompany();
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   // Manejar errores de validación de la API
   useEffect(() => {
@@ -55,12 +56,11 @@ const CompanyForm = () => {
       console.log('Empresa creada exitosamente');
       setFormSubmitted(false);
 
-      // Mostrar mensaje de éxito o redireccionar
-      // Por ejemplo:
-      // navigate('/empresas');
       setFlash('Empresa creada exitosamente', 'success');
+      navigate('/empresas'); 
     }
-  }, [isSuccess, error]);
+   
+  }, [isSuccess]);
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e, async (data) => {

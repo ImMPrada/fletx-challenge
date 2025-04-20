@@ -7,6 +7,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUser();
+   
   }, []);
 
   if (isLoading) {

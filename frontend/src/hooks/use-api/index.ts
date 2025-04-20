@@ -1,15 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext, useCallback } from 'react';
 import { config } from '../../config';
 import { RequestOptions, UseApiReturn } from './types';
 import { FlashContext } from '../../contexts/flash-context';
-import { useContext } from 'react';
 
 export const useApi = (): UseApiReturn => {
   const { setFlash } = useContext(FlashContext);
-
   const navigate = useNavigate();
 
-  const fetchData = async <T>(endpoint: string, options: RequestOptions = {}, formatedResponse: boolean = false): Promise<T> => {
+  const fetchData = useCallback(async <T>(endpoint: string, options: RequestOptions = {}, formatedResponse: boolean = false): Promise<T> => {
     const token = sessionStorage.getItem('jwt');
     
     const headers: Record<string, string> = {
@@ -66,7 +65,7 @@ export const useApi = (): UseApiReturn => {
       console.error('Error en fetchData:', error);
       throw error;
     }
-  };
+  }, [navigate, setFlash]);
 
   return { fetchData };
 };

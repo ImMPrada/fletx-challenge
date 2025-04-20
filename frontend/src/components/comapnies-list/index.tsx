@@ -11,6 +11,7 @@ const CompaniesList = () => {
 
   useEffect(() => {
     fetchCompanies();
+   
   }, []);
 
   if (isLoading) {

@@ -11,7 +11,9 @@ const MagicLogin = () => {
   const { setFlash } = useContext(FlashContext);
 
   useEffect(() => {
-    authenticate({ token: searchParams.get('token') || '' });
+    const token = searchParams.get('token') || '';
+    authenticate({ token });
+   
   }, []);
 
   if (state.isAuthenticated) {

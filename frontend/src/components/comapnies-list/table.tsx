@@ -1,4 +1,5 @@
 import { Company } from '../../hooks/use-companies-list/types';
+import { Link } from 'react-router-dom';
 
 const Table = ({ companies }: { companies: Company[] }) => {
 
@@ -16,10 +17,26 @@ const Table = ({ companies }: { companies: Company[] }) => {
         <tbody>
           {companies.map((company) => (
             <tr key={company.id} className="hover:bg-gray-50">
-              <td className="py-2 px-4 border-b">{company.name}</td>
-              <td className="py-2 px-4 border-b">{company.category}</td>
-              <td className="py-2 px-4 border-b">{company.department.name}</td>
-              <td className="py-2 px-4 border-b">{company.city.name}</td>
+              <td className="py-2 px-4 border-b">
+                <Link to={`/companies/${company.id}`}>
+                  {company.name}
+                </Link>
+              </td>
+              <td className="py-2 px-4 border-b">
+                <Link to={`/companies/${company.id}`}>
+                  {company.category}
+                </Link>
+              </td>
+              <td className="py-2 px-4 border-b">
+                <Link to={`/companies/${company.id}`}>
+                  {company.department.name}
+                </Link>
+              </td>
+              <td className="py-2 px-4 border-b">
+                <Link to={`/companies/${company.id}`}>
+                  {company.city.name}
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

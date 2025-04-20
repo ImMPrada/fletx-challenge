@@ -1,19 +1,20 @@
 import ContainerWithFloatingNavbar from '../../templates/container-with-floating-navbar';
-import { useFeatureCheck } from '../../hooks/use-feature-check';
-import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Loading from '../../components/loading';
-import { FlashContext } from '../../contexts/flash-context';
+import Company from '../../components/company';
+import { useContext } from 'react';
 import { FEATURES } from '../../data/features';
-import CompaniesList from '../../components/comapnies-list';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FlashContext } from '../../contexts/flash-context';
+import { useFeatureCheck } from '../../hooks/use-feature-check';
+import Loading from '../../components/loading';
 
-const Companies = () => {
+const CompanyPage = () => {
   const { checkFeature, isLoading: isCheckingFeature, can: canListCompanies } = useFeatureCheck();
   const { setFlash } = useContext(FlashContext);
   const navigate = useNavigate();
   
   useEffect(() => {
-    checkFeature(FEATURES.LIST_COMPANIES);
+    checkFeature(FEATURES.VIEW_COMPANY);
    
   }, []); 
 
@@ -36,9 +37,9 @@ const Companies = () => {
 
   return (
     <ContainerWithFloatingNavbar>
-      <CompaniesList />
+      <Company />
     </ContainerWithFloatingNavbar>
   );
 };
 
-export default Companies;
+export default CompanyPage;

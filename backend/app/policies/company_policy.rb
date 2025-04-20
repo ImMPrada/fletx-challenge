@@ -7,6 +7,10 @@ class CompanyPolicy < ApplicationPolicy
     user.can?("companies.list")
   end
 
+  def show?
+    user.can?("companies.read")
+  end
+
   class Scope < Scope
     def resolve
       return scope.none unless user.can?("companies.list")

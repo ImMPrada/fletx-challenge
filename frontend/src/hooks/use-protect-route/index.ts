@@ -8,20 +8,24 @@ export const useProtectRoute = () => {
   const { setFlash } = useContext(FlashContext);
   const { state, authenticate } = useContext(AuthContext);
 
-  // Verificar si el contexto de autenticación indica que el usuario está autenticado
-  const verifyAuthentication = async (): Promise<boolean> => {
-    await authenticate({});
-    return state.isAuthenticated;
-  };
-
   // Verificar la autenticación al montar el componente
   useEffect(() => {
-    const isAuthenticated = verifyAuthentication();
+    const verifyAuthentication = async (): Promise<boolean> => {
+      await authenticate({});
+      return state.isAuthenticated;
+    };
+
+    const checkAuthentication = async () => {
+      const isAuthenticated = await verifyAuthentication();
+      
+      if (!isAuthenticated) {
+        setFlash('Debe iniciar sesión para acceder a esta ruta', 'warning');
+        navigate('/login');
+      }
+    };
     
-    if (!isAuthenticated) {
-      setFlash('Debe iniciar sesión para acceder a esta ruta', 'warning');
-      navigate('/login');
-    }
+    checkAuthentication();
+   
   }, []);
 
   return;
