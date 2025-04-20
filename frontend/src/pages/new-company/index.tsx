@@ -21,7 +21,7 @@ const NewCompany = () => {
 
     if (!canCreateCompany) {
       setFlash('No tienes permisos para crear una empresa', 'warning');
-      navigate('/');
+      navigate(-1);
     }
   }, [canCreateCompany]);
 

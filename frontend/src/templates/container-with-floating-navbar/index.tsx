@@ -6,7 +6,7 @@ const ContainerWithFloatingNavbar = ({ children }: ContainerWithFloatingNavbarPr
     <div className="flex flex-col min-h-screen w-screen">
       <Navbar title="FLETX challenge" />
 
-      <div className="flex flex-col pt-10 justify-start items-center w-full">
+      <div className="flex flex-col p-10 justify-start items-center w-full">
         {children}
       </div>
     </div>

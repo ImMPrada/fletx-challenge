@@ -1,41 +1,36 @@
 import { useEffect } from 'react';
 import { useCompaniesList } from '../../hooks/use-companies-list';
+import Table from './table';
+import Loading from '../loading';
+import Button from '../ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const CompaniesList = () => {
-  const { companies, isLoading, error, fetchCompanies } = useCompaniesList();
+  const { companies, isLoading, fetchCompanies } = useCompaniesList();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCompanies();
   }, []);
 
   if (isLoading) {
-    return <div>Cargando empresas...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
+    return <Loading />;
   }
 
   return (
-    <div>
-      <h1>Empresas</h1>
+    <div className="w-full flex flex-col items-center justify-start gap-6">
+      <div className="flex items-center justify-center gap-6">
+        <h1 className="text-2xl font-bold">Empresas</h1>
+        <Button 
+          label="Agregar empresa" 
+          type="button" 
+          variant="primary" 
+          onClick={() => navigate('/companies/new')}
+        />
+      </div>
+      
       {companies && companies.length > 0 ? (
-        <ul className="companies-list">
-          {companies.map((company) => (
-            <li key={company.id} className="company-item">
-              <h3>{company.name}</h3>
-              <div>
-                <p><strong>Categoría:</strong> {company.category}</p>
-                <p><strong>Dirección:</strong> {company.address}</p>
-                <p><strong>Teléfono:</strong> {company.phone_number}</p>
-                <p><strong>Activos:</strong> {company.assets}</p>
-                <p><strong>Pasivos:</strong> {company.liabilities}</p>
-                <p><strong>Ciudad:</strong> {company.city.name}</p>
-                <p><strong>Departamento:</strong> {company.department.name}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <Table companies={companies} />
       ) : (
         <p>No hay empresas disponibles</p>
       )}
