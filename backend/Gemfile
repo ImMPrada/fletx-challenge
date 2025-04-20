@@ -72,3 +72,5 @@ end
 gem "dockerfile-rails", ">= 1.7", group: :development
 
 gem "pundit", "~> 2.5"
+
+gem "terminal-table", "~> 4.0"

@@ -33,6 +33,13 @@ Crea los departamentos y ciudades:
 bundle exec rake departments:create
 ```
 
+Registra los roles y features:
+
+```bash
+bundle exec rake authorization:features:create
+bundle exec rake authorization:roles:create
+```
+
 Estamos usando semillas para popular la base de datos con datos de ejemplos.
 
 ```bash
