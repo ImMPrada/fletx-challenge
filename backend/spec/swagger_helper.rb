@@ -69,6 +69,33 @@ RSpec.configure do |config|
               }
             ],
             description: 'Respuesta enviada cuando ocurre un error de autenticación o validación'
+          },
+          city: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              name: { type: :string, example: 'Medellín' }
+            },
+            required: [ 'id', 'name' ],
+            description: 'Información básica de una ciudad'
+          },
+          department: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              name: { type: :string, example: 'Antioquia' },
+              cities: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/city' }
+              }
+            },
+            required: [ 'id', 'name', 'cities' ],
+            description: 'Información de un departamento con sus ciudades asociadas'
+          },
+          departments_response: {
+            type: :array,
+            items: { '$ref' => '#/components/schemas/department' },
+            description: 'Lista de departamentos con sus ciudades asociadas'
           }
         },
         securitySchemes: {
