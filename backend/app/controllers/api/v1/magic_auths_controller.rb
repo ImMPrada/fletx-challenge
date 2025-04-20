@@ -23,9 +23,9 @@ module Api
           sub: user.id,
           exp: TOKEN_EXPIRATION_TIME.from_now.to_i
         }
-        
+
         secret = Rails.application.credentials.secret_key_base
-        JWT.encode(payload, secret, 'HS256')
+        JWT.encode(payload, secret, "HS256")
       end
 
       def record

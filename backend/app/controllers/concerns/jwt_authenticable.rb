@@ -36,7 +36,7 @@ module JwtAuthenticable
     return nil unless token.present?
 
     begin
-      secret = Rails.application.credentials.secret_key_base
+      secret = ENV["JWT_SECRET_KEY"] || Rails.application.credentials.secret_key_base
       JWT.decode(token, secret, true, { algorithm: "HS256" }).first
     rescue JWT::DecodeError => e
       Rails.logger.error("JWT decode error: #{e.message}")

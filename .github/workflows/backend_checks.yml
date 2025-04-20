@@ -17,6 +17,8 @@ jobs:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       RAILS_ENV: test
+      JWT_SECRET_KEY: github_actions_test_jwt_secret
+      FRONTEND_URL: http://localhost:3000
 
     services:
       postgres:

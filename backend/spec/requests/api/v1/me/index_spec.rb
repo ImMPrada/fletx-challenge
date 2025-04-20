@@ -37,6 +37,8 @@ RSpec.describe 'Me API', type: :request do
 
   def generate_jwt_token_for(user)
     payload = { sub: user.id }
-    JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
+    # Usar una clave secreta fija para los tests para asegurar compatibilidad en todos los entornos
+    secret = ENV['JWT_SECRET_KEY'] || Rails.application.credentials.secret_key_base
+    JWT.encode(payload, secret, 'HS256')
   end
 end
