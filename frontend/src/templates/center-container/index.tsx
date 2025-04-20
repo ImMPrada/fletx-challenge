@@ -2,7 +2,7 @@ import { CenterContainerProps } from './types';
 
 const CenterContainer = ({ children }: CenterContainerProps) => {
   return (
-    <div className="flex items-start justify-center pt-32 pb-8 px-8 min-h-screen w-screen font-sans bg-red">
+    <div className="flex items-start justify-center p-8 h-full w-screen font-sans">
       {children}
     </div>
   );

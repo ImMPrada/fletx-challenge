@@ -3,10 +3,13 @@ import Navbar from '../../components/navbar';
 
 const ContainerWithFloatingNavbar = ({ children }: ContainerWithFloatingNavbarProps) => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen w-screen">
       <Navbar title="FLETX challenge" />
-      {children}
-    </>
+
+      <div className="flex flex-col pt-10 justify-start items-center w-full">
+        {children}
+      </div>
+    </div>
   );
 };
 

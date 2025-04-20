@@ -8,7 +8,7 @@ const Navbar = ({ title }: NavbarProps) => {
   };
 
   return (
-    <nav className="flex justify-between items-center px-5 md:px-20 h-20 bg-white shadow fixed top-0 left-0 right-0 z-10">
+    <nav className="flex justify-between items-center px-5 md:px-20 h-12 bg-white shadow">
       <div className="text-xl font-bold text-purple">{title}</div>
       <Button 
         label={<SignOutIcon size={24} />}
