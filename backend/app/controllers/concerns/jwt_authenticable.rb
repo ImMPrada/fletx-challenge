@@ -29,14 +29,14 @@ module JwtAuthenticable
     auth_header = request.headers["Authorization"]
     return auth_header.split(" ").last if auth_header.present? && auth_header.start_with?("Bearer ")
 
-    request.cookies["jwt"] || request.headers["X-JWT-Token"]
+    request.headers["X-JWT-Token"]
   end
 
   def decode_jwt_token(token)
     return nil unless token.present?
 
     begin
-      secret = Rails.application.credentials.secret_key_base
+      secret = ENV["JWT_SECRET_KEY"] || Rails.application.credentials.secret_key_base
       JWT.decode(token, secret, true, { algorithm: "HS256" }).first
     rescue JWT::DecodeError => e
       Rails.logger.error("JWT decode error: #{e.message}")

@@ -6,11 +6,11 @@ RSpec.describe 'Me API', type: :request do
       tags 'Perfil'
       produces 'application/json'
       description 'Este endpoint devuelve la información del usuario actualmente autenticado.
-      Requiere un token JWT válido que debe ser enviado en los headers o cookies.'
+      Requiere un token JWT válido que debe ser enviado en los headers.'
 
       security [
         { bearer_auth: [] },
-        { cookie_auth: [] }
+        { api_key_auth: [] }
       ]
 
       response '200', 'información del usuario' do
@@ -37,6 +37,8 @@ RSpec.describe 'Me API', type: :request do
 
   def generate_jwt_token_for(user)
     payload = { sub: user.id }
-    JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
+    # Usar una clave secreta fija para los tests para asegurar compatibilidad en todos los entornos
+    secret = ENV['JWT_SECRET_KEY'] || Rails.application.credentials.secret_key_base
+    JWT.encode(payload, secret, 'HS256')
   end
 end

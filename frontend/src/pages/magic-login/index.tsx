@@ -2,40 +2,39 @@ import { useContext, useEffect } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import CenterMidleContainer from '../../templates/center-midle-container';
 import { AuthContext } from '../../contexts/auth-context';
-
+import { SpinLoading } from 'respinner'
+import { FlashContext } from '../../contexts/flash-context';
 const MagicLogin = () => {
   const [searchParams] = useSearchParams();
   const { authenticate, state } = useContext(AuthContext);
+  const { setFlash } = useContext(FlashContext);
 
   useEffect(() => {
-    const token = searchParams.get('token');
-    if (token) {
-      authenticate({ token });
-    }
+    authenticate({ token: searchParams.get('token') || '' });
   }, []);
-
-  console.log(state);
 
   if (state.isAuthenticated) {
     return (
       <CenterMidleContainer>
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <h2 className="text-xl font-semibold mb-4">
-            Oli! {state.user?.email}
-          </h2>
-        </div>
+        Autenticado....
       </CenterMidleContainer>
     );
   }
 
-  if (state.isError || state.requiresAuth) {
-    return <Navigate to="/login" />;
+  if (state.isError) {
+    setFlash(state.data ?? 'Error de autenticación', 'error');
+
+    return (
+      <CenterMidleContainer>
+        <Navigate to="/login" />
+      </CenterMidleContainer>
+    );
   }
 
   return (
     <CenterMidleContainer>
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">Iniciando sesión...</h2>
+      <div className="w-full flex justify-center items-center">
+        <SpinLoading fill="#A729F5" borderRadius={10} count={20} size={100} />
       </div>
     </CenterMidleContainer>
   );

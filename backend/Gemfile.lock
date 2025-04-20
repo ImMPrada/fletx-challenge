@@ -174,7 +174,6 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailtrap (2.3.0)
     marcel (1.0.4)
     mini_mime (1.1.5)
     minitest (5.25.5)
@@ -399,7 +398,6 @@ DEPENDENCIES
   faker
   jbuilder
   kamal
-  mailtrap (~> 2.3)
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors

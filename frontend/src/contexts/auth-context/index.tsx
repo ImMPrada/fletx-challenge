@@ -1,14 +1,11 @@
 import { createContext, ReactNode, useState } from 'react';
-import { AuthState, AuthContextParams } from './types';
+import { AuthState, AuthContextParams, UseAuthenticateTokenParams, UseAuthenticateTokenResponse } from './types';
 import { config } from '../../config';
-import { UseAuthenticateTokenParams } from './types';
 
 const initialState: AuthState = {
-  user: null,
   isAuthenticated: false,
-  isFetchingAuth: false,
+  isFetching: false,
   isError: false,
-  requiresAuth: false,
   data: null,
 };
 
@@ -21,82 +18,55 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<AuthState>(initialState);
 
   const authenticate = async (params: UseAuthenticateTokenParams) => {
-    setState({ ...state, isFetchingAuth: true });
+    setState({ ...state, isFetching: true });
 
-    try {
-      const response = await fetch(`${config.apiUrl}/api/v1/magic_auths`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          magic_link: {
-            token: params.token,
-          },
-        }),
-      });
+    const token = sessionStorage.getItem('jwt');
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        setState({
-          ...state,
-          isFetchingAuth: false,
-          data: errorData.message || 'Token inválido o expirado',
-          isError: true,
-          isAuthenticated: false,
-          requiresAuth: true,
-        });
-
-        return;
-      }
-
-      const data = await response.json();
-
+    if (token) {
       setState({
         ...state,
-        isFetchingAuth: false,
-        data,
+        isFetching: false,
         isAuthenticated: true,
       });
 
-      await fetchMe();
-    } catch (error) {
-      console.error('Error during token authentication:', error);
-      const errorMessage =
-        error instanceof Error ? error.message : 'Error desconocido';
-      throw errorMessage;
+      return;
     }
-  };
 
-  const fetchMe = async () => {
-    try {
-      const response = await fetch(`${config.apiUrl}/api/v1/me`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+    const response = await fetch(`${config.apiUrl}/api/v1/magic_auths`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        magic_link: {
+          token: params.token,
         },
-        credentials: 'include',
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      setState({
+        ...state,
+        isFetching: false,
+        data: errorData.message || 'Token inválido o expirado',
+        isError: true,
+        isAuthenticated: false,
       });
-      const data = await response.json();
 
-      if (!response.ok) {
-        setState({
-          ...state,
-          isError: true,
-          isAuthenticated: false,
-          requiresAuth: true,
-        });
-        return;
-      }
-
-      setState({ ...initialState, user: data, isAuthenticated: true });
-    } catch (error) {
-      console.error('Error during fetchMe:', error);
-      const errorMessage =
-        error instanceof Error ? error.message : 'Error desconocido';
-      throw errorMessage;
+      return;
     }
+
+    const data = await response.json() as UseAuthenticateTokenResponse;
+    sessionStorage.setItem('jwt', data.token);
+
+    setState({
+      ...state,
+      isFetching: false,
+      data: 'logged in',
+      isAuthenticated: true,
+    });
   };
 
   const value: AuthContextParams = {

@@ -42,10 +42,11 @@ RSpec.configure do |config|
           auth_success_response: {
             type: :object,
             properties: {
-              success: { type: :boolean, example: true }
+              success: { type: :boolean, example: true },
+              token: { type: :string, example: "eyJhbGciOiJIUzI1NiJ9..." }
             },
-            required: [ 'success' ],
-            description: 'Respuesta enviada cuando la autenticación es exitosa. El token JWT se envía en los headers y cookies, no en el cuerpo.'
+            required: [ 'success', 'token' ],
+            description: 'Respuesta enviada cuando la autenticación es exitosa. El token JWT se envía en el cuerpo de la respuesta.'
           },
           error_response: {
             type: :object,
@@ -76,21 +77,15 @@ RSpec.configure do |config|
             scheme: :bearer,
             bearerFormat: 'JWT'
           },
-          cookie_auth: {
+          api_key_auth: {
             type: :apiKey,
-            name: 'jwt',
-            in: :cookie
+            name: 'X-JWT-Token',
+            in: :header
           }
         },
         headers: {
           'X-JWT-Token': {
             description: 'JWT token for authentication',
-            schema: {
-              type: :string
-            }
-          },
-          'Set-Cookie': {
-            description: 'Cookie containing the JWT token',
             schema: {
               type: :string
             }
