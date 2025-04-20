@@ -5,6 +5,7 @@ module Api
 
       rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
       rescue_from AuthErrors::Base, MagicLinkErrors::Base, with: :render_unauthorized_response
+      rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
       before_action :authenticate_user!
 
@@ -16,6 +17,10 @@ module Api
 
       def render_unauthorized_response(exception)
         render json: { error: exception.message }, status: :unauthorized
+      end
+
+      def render_not_found_response(exception)
+        render json: { error: exception.message }, status: :not_found
       end
     end
   end
