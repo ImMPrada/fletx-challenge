@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_123334) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_20_143757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_123334) do
     t.index ["name"], name: "index_departments_on_name", unique: true
   end
 
+  create_table "features", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_features_on_code", unique: true
+  end
+
   create_table "magic_link_tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token"
@@ -70,6 +78,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_123334) do
     t.index ["user_id"], name: "index_magic_link_tokens_on_user_id"
   end
 
+  create_table "role_features", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "feature_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feature_id"], name: "index_role_features_on_feature_id"
+    t.index ["role_id"], name: "index_role_features_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_roles_on_code", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -78,12 +103,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_123334) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "role_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "cities", "departments"
   add_foreign_key "companies", "cities"
   add_foreign_key "companies", "departments"
   add_foreign_key "magic_link_tokens", "users"
+  add_foreign_key "role_features", "features"
+  add_foreign_key "role_features", "roles"
+  add_foreign_key "users", "roles"
 end
