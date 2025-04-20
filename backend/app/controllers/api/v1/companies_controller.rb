@@ -6,6 +6,11 @@ module Api
         authorize @companies
       end
 
+      def show
+        @company = Company.find(params[:id])
+        authorize @company
+      end
+
       def create
         authorize Company
 

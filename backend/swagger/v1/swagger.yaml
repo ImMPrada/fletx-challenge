@@ -76,6 +76,47 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error_response"
+  "/api/v1/companies/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: ID de la empresa a consultar
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Obtiene detalles de una empresa específica
+      tags:
+      - Empresas
+      description: Esta respuesta ocurre cuando no existe una empresa con el ID proporcionado.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: detalle de empresa
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/company"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: empresa no encontrada
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
   "/api/v1/departments":
     get:
       summary: Obtiene listado de departamentos
