@@ -1,8 +1,6 @@
 json.array! @departments do |department|
-  json.id department.id
-  json.name department.name
+  json.partial! "api/v1/departments/department", department: department
   json.cities department.cities do |city|
-    json.id city.id
-    json.name city.name
+    json.partial! "api/v1/departments/city", city: city
   end
 end
