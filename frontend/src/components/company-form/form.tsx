@@ -44,102 +44,112 @@ const Form = ({
   }, [formState.department]);
 
   return (
-    <div className="flex flex-col gap-4 p-10 bg-white rounded-md w-full mx-2 max-w-[500px]">
+    <div className="flex flex-col gap-8 p-10 bg-white rounded-md w-full mx-2 max-w-[700px]">
       <h1 className="text-heading-s font-bold text-navy">Información de la empresa</h1>
 
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-        <Input
-          label="Nombre:"
-          name="name"
-          errorMessage={errors.name}
-          type="text"
-          placeholder="Nombre de la empresa"
-          value={name}
-          onChange={handleInputChange}
-        />
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row md:gap-2">
+            <Input
+              label="Nombre:"
+              name="name"
+              errorMessage={errors.name}
+              type="text"
+              placeholder="Nombre de la empresa"
+              value={name}
+              onChange={handleInputChange}
+            />
 
-        <Input
-          label="Sector:"
-          name="category"
-          errorMessage={errors.category}
-          type="text"
-          placeholder="Sector de la empresa"
-          value={category}
-          onChange={handleInputChange}
-        />
+            <Input
+              label="Sector:"
+              name="category"
+              errorMessage={errors.category}
+              type="text"
+              placeholder="Sector de la empresa"
+              value={category}
+              onChange={handleInputChange}
+            />
+          </div>
 
-        <Input
-          label="Teléfono:"
-          name="phoneNumber"
-          errorMessage={errors.phoneNumber}
-          type="tel"
-          placeholder="Número de teléfono"
-          value={phoneNumber}
-          onChange={handleInputChange}
-        />
+          <div className="flex flex-col md:flex-row md:gap-2">
+            <Input
+              label="Teléfono:"
+              name="phoneNumber"
+              errorMessage={errors.phoneNumber}
+              type="tel"
+              placeholder="Número de teléfono"
+              value={phoneNumber}
+              onChange={handleInputChange}
+            />
 
-        <Select
-          label="Departamento:"
-          name="department"
-          errorMessage={errors.department}
-          value={department}
-          onChange={handleSelectChange}
-          options={[
-            { id: "placeholder", value: "", label: "Selecciona un departamento" },
-            ...departments.map(dept => ({
-              id: String(dept.id),
-              value: String(dept.id),
-              label: dept.name
-            }))
-          ]}
-        />
+            <Input
+              label="Dirección:"
+              name="address"
+              errorMessage={errors.address}
+              type="text"
+              placeholder="Dirección de la empresa"
+              value={address}
+              onChange={handleInputChange}
+            />
+          </div>
 
-        <Select
-          label="Ciudad:"
-          name="city"
-          errorMessage={errors.city}
-          value={city}
-          onChange={handleSelectChange}
-          disabled={cities.length === 0}
-          options={[
-            { id: "placeholder", value: "", label: "Selecciona una ciudad" },
-            ...cities.map(city => ({
-              id: String(city.id),
-              value: String(city.id),
-              label: city.name
-            }))
-          ]}
-        />
+          <div className="flex flex-col md:flex-row md:gap-2">
+            <Select
+              label="Departamento:"
+              name="department"
+              errorMessage={errors.department}
+              value={department}
+              onChange={handleSelectChange}
+              options={[
+                { id: "placeholder", value: "", label: "Selecciona un departamento" },
+                ...departments.map(dept => ({
+                  id: String(dept.id),
+                  value: String(dept.id),
+                  label: dept.name
+                }))
+              ]}
+            />
 
-        <Input
-          label="Dirección:"
-          name="address"
-          errorMessage={errors.address}
-          type="text"
-          placeholder="Dirección de la empresa"
-          value={address}
-          onChange={handleInputChange}
-        />
+            <Select
+              label="Ciudad:"
+              name="city"
+              errorMessage={errors.city}
+              value={city}
+              onChange={handleSelectChange}
+              disabled={cities.length === 0}
+              options={[
+                { id: "placeholder", value: "", label: "Selecciona una ciudad" },
+                ...cities.map(city => ({
+                  id: String(city.id),
+                  value: String(city.id),
+                  label: city.name
+                }))
+              ]}
+            />
+          </div>
 
-        <Input
-          label="Activos:"
-          name="assets"
-          errorMessage={errors.assets}
-          type="text"
-          placeholder="Activos de la empresa (ej: 10000.50)"
-          value={assets}
-          onChange={handleInputChange}
-        />
+          <div className="flex flex-col md:flex-row md:gap-2">
+            <Input
+              label="Activos:"
+              name="assets"
+              errorMessage={errors.assets}
+              type="text"
+              placeholder="Activos de la empresa (ej: 10000.50)"
+              value={assets}
+              onChange={handleInputChange}
+            />
 
-        <Input
-          label="Pasivos:"
-          name="liabilities"
-          errorMessage={errors.liabilities}
-          type="text"
-          placeholder="Pasivos de la empresa (ej: 5000.75)"
-          value={liabilities}
-          onChange={handleInputChange}
-        />
+            <Input
+              label="Pasivos:"
+              name="liabilities"
+              errorMessage={errors.liabilities}
+              type="text"
+              placeholder="Pasivos de la empresa (ej: 5000.75)"
+              value={liabilities}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
 
         <Button
           label="Guardar información"
