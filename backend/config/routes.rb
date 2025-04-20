@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :me, only: [ :index ]
       resources :departments, only: [ :index ]
       resources :companies, only: [ :create ]
+      resources :check_feature, only: [ :index ]
     end
   end
 
