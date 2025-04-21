@@ -2,6 +2,11 @@ export interface Role {
   id: number;
   code: string;
   description: string;
+  features?: Feature[];
+}
+
+export interface Feature {
+  code: string;
 }
 
 export interface UseRolesListReturn {

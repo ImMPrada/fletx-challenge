@@ -19,7 +19,7 @@ const UsersTable = ({ users }: UsersTableProps) => {
             <tr key={user.id} className="hover:bg-gray-50">
               <td className="py-2 px-4 border-b">
                 <Link to={`/users/${user.id}`}>
-                  {user.name || ''} {user.lastName || ''}
+                  {user.name || '-'} {user.lastName || ''}
                 </Link>
               </td>
               <td className="py-2 px-4 border-b">
@@ -34,7 +34,7 @@ const UsersTable = ({ users }: UsersTableProps) => {
               </td>
               <td className="py-2 px-4 border-b">
                 <Link to={`/users/${user.id}`}>
-                  {user.role.description}
+                  {user.role.code}: {user.role.description}
                 </Link>
               </td>
               <td className="py-2 px-4 border-b">

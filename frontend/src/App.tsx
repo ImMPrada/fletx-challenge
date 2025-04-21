@@ -10,11 +10,11 @@ function App() {
     <FlashProvider>
       <DepartmentsProvider>
         <AuthProvider>
-          <Router>
-          <Flash>
-            <AppRoutes />
-            </Flash>
-          </Router>
+            <Router>
+              <Flash>
+                <AppRoutes />
+              </Flash>
+            </Router>
         </AuthProvider>
       </DepartmentsProvider>
     </FlashProvider>

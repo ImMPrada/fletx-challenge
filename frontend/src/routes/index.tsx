@@ -7,20 +7,24 @@ import Companies from '../pages/companies';
 import CompanyPage from '../pages/company-page';
 import EditCompany from '../pages/edit-company';
 import UsersPage from '../pages/users-page';
+import { RolesProvider } from '../contexts/roles-context';
 
 const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path="/" element={<ProfilePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/magic-login" element={<MagicLogin />} />
-      <Route path="/users" element={<UsersPage />} />
-      <Route path="/companies" element={<Companies />} />
-      <Route path="/companies/:id" element={<CompanyPage />} />
-      <Route path="/companies/new" element={<NewCompany />} />
-      <Route path="/companies/:id/edit" element={<EditCompany />} />
-    </Routes>
+    <RolesProvider> 
+      <Routes>
+        <Route path="/" element={<ProfilePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/magic-login" element={<MagicLogin />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/companies" element={<Companies />} />
+        <Route path="/companies/:id" element={<CompanyPage />} />
+        <Route path="/companies/new" element={<NewCompany />} />
+        <Route path="/companies/:id/edit" element={<EditCompany />} />
+      </Routes>
+    </RolesProvider>
+
   );
 };
 
