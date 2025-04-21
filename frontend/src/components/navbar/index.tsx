@@ -2,11 +2,19 @@ import Button from '../ui/button';
 import { NavbarProps } from './types';
 import {SignOutIcon} from '@primer/octicons-react'
 import { Link } from 'react-router-dom';
+import { useLogout } from '../../hooks/use-logout';
+import Loading from '../loading';
 
 const Navbar = ({ title }: NavbarProps) => {
+  const { logout, isLoading: isLogoutLoading } = useLogout();
+
   const handleLogout = () => {
-    alert('va a cerrar session');
+    logout();
   };
+
+  if (isLogoutLoading) {
+    return <Loading />;
+  }
 
   return (
     <nav className="flex justify-between items-center px-5 md:px-20 h-12 bg-white shadow">
@@ -23,6 +31,7 @@ const Navbar = ({ title }: NavbarProps) => {
         variant="primary" 
         onClick={handleLogout}
         className="w-auto"
+        disabled={isLogoutLoading}
       />
     </nav>
   );

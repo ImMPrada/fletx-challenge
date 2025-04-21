@@ -11,4 +11,5 @@ const initialState: AuthState = {
 export const AuthContext = createContext<AuthContextParams>({
   state: initialState,
   authenticate: () => {},
+  removeJwt: () => {},
 }); 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :departments, only: [ :index ]
       resources :companies, only: [ :index, :create, :show, :update ]
       resources :check_feature, only: [ :index ]
+      delete "/logout", to: "sessions#destroy"
     end
   end
 

@@ -79,9 +79,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const removeJwt = () => {
+    sessionStorage.removeItem('jwt');
+
+    setState({
+      ...initialState,
+      data: null
+    });
+  };
+
   const value: AuthContextParams = {
     state,
     authenticate,
+    removeJwt
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
