@@ -27,4 +27,5 @@ export interface AuthState {
 export interface AuthContextParams {
   state: AuthState;
   authenticate: (params: UseAuthenticateTokenParams) => void;
+  removeJwt: () => void;
 }
