@@ -21,6 +21,12 @@ module Api
         @user = service.call!
       end
 
+      def show
+        authorize User
+
+        @user = User.find(params[:id])
+      end
+
       private
 
       def user_params

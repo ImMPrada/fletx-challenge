@@ -8,8 +8,8 @@ interface User {
   name: string;
   last_name: string;
   email: string;
-  role_id: number;
-  company_id: number;
+  role_id: number | undefined;
+  company_id: number | undefined;
   work_position?: string;
   phone_number?: string;
   salary?: string;
@@ -29,11 +29,19 @@ export function useUserForm(initialData?: User | null): UseUserFormResult {
   useEffect(() => {
     if (initialData) {
       // Establecer los valores iniciales
-      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'name', value: initialData.name });
-      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'lastName', value: initialData.last_name });
-      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'email', value: initialData.email });
-      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'roleId', value: initialData.role_id.toString() });
-      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'companyId', value: initialData.company_id.toString() });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'name', value: initialData.name || '' });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'lastName', value: initialData.last_name || '' });
+      dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'email', value: initialData.email || '' });
+      
+      // Asegurarse de que role_id no sea undefined antes de convertirlo a string
+      if (initialData.role_id !== undefined && initialData.role_id !== null) {
+        dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'roleId', value: initialData.role_id.toString() });
+      }
+      
+      // Asegurarse de que company_id no sea undefined antes de convertirlo a string
+      if (initialData.company_id !== undefined && initialData.company_id !== null) {
+        dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'companyId', value: initialData.company_id.toString() });
+      }
       
       if (initialData.work_position) {
         dispatch({ type: 'UPDATE_INPUT_FIELD', field: 'workPosition', value: initialData.work_position });
