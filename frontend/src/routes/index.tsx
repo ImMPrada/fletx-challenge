@@ -10,6 +10,9 @@ import UsersPage from '../pages/users-page';
 import { RolesProvider } from '../contexts/roles-context';
 import NewUser from '../pages/new-user';
 import EditUser from '../pages/edit-user';
+import ProductsPage from '../pages/products-page';
+import NewProduct from '../pages/new-product';
+import EditProduct from '../pages/edit-product';
 
 const AppRoutes = () => {
   return (
@@ -26,6 +29,9 @@ const AppRoutes = () => {
         <Route path="/companies/:id" element={<CompanyPage />} />
         <Route path="/companies/new" element={<NewCompany />} />
         <Route path="/companies/:id/edit" element={<EditCompany />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/new" element={<NewProduct />} />
+        <Route path="/products/:id/edit" element={<EditProduct />} />
       </Routes>
     </RolesProvider>
 
