@@ -7,7 +7,6 @@
     - companies.delete
     - companies.list
     - users.create
-    - users.read
     - users.update
     - users.delete
     - users.list
@@ -16,5 +15,4 @@
   description: it doesn't have RU (of CRUD) permissions
   features:
     - companies.list
-    - users.read
     - users.me

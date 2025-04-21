@@ -7,6 +7,10 @@ class UserPolicy < ApplicationPolicy
     user.can?("users.create")
   end
 
+  def update?
+    user.can?("users.update")
+  end
+
   class Scope < Scope
     def resolve
       return scope.none unless user.can?("users.list")
