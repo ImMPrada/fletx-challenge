@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  subject { build(:user, role: role) }
+
+  let(:role) { create(:role) }
+
+  describe "validations" do
+    it { should validate_uniqueness_of(:email).case_insensitive }
+  end
+
   describe "associations" do
     it { should have_many(:magic_link_tokens).dependent(:destroy) }
     it { should belong_to(:role) }
