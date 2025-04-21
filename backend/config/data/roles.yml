@@ -11,6 +11,7 @@
     - users.delete
     - users.list
     - users.me
+    - users.read
     - products.create
     - products.read
     - products.update

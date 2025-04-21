@@ -4,12 +4,14 @@ export interface TableBodyProps {
   companies: Company[];
   canDeleteCompany: boolean;
   canUpdateCompany: boolean;
+  fetchCompanies: () => void;
 }
 
 export interface TableProps {
   companies: Company[];
   canDeleteCompany: boolean;
   canUpdateCompany: boolean;
+  fetchCompanies: () => void;
 }
 
 export interface CompaniesListProps {
@@ -22,4 +24,5 @@ export interface ActionsProps {
   company: Company;
   canDeleteCompany: boolean;
   canUpdateCompany: boolean;
+  fetchCompanies: () => void;
 }

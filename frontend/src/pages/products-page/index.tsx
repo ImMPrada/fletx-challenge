@@ -62,9 +62,9 @@ const ProductsPage = () => {
   return (
     <ContainerWithFloatingNavbar>
       <ProductsList
-        canCreateProduct={canCreateProduct}
-        canUpdateProduct={canUpdateProduct}
-        canDeleteProduct={canDeleteProduct}
+        canCreateProduct={canCreateProduct ?? false}
+        canUpdateProduct={canUpdateProduct ?? false}
+        canDeleteProduct={canDeleteProduct ?? false}
       />
     </ContainerWithFloatingNavbar>
   );

@@ -49,6 +49,7 @@ const ProductsList = ({
         products={products}
         canUpdateProduct={canUpdateProduct}
         canDeleteProduct={canDeleteProduct}
+        fetchProducts={fetchProducts}
       />
     </>
   );

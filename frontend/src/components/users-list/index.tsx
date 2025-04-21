@@ -41,6 +41,7 @@ const UsersList = ({
           canCreateUser={canCreateUser || false}
           canUpdateUser={canUpdateUser || false}
           canDeleteUser={canDeleteUser || false}
+          fetchUsers={fetchUsers}
         />
       ) : (
         <p>No hay usuarios disponibles</p>

@@ -5,6 +5,7 @@ export interface UsersTableProps {
   canCreateUser: boolean;
   canUpdateUser: boolean;
   canDeleteUser: boolean;
+  fetchUsers: () => void;
 }
 
 export interface HeaderProps {
@@ -18,10 +19,12 @@ export interface BodyProps {
   canCreateUser: boolean;
   canUpdateUser: boolean;
   canDeleteUser: boolean;
+  fetchUsers: () => void;
 }
 
 export interface ActionsProps {
   user: User;
   canUpdateUser: boolean;
   canDeleteUser: boolean;
+  fetchUsers: () => void;
 }

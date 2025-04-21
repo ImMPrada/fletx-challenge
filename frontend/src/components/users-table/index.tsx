@@ -2,7 +2,13 @@ import { UsersTableProps } from './types';
 import Header from './header';
 import Body from './body';
 
-const UsersTable = ({ users, canCreateUser, canUpdateUser, canDeleteUser }: UsersTableProps) => {
+const UsersTable = ({
+  users,
+  canCreateUser,
+  canUpdateUser,
+  canDeleteUser,
+  fetchUsers
+}: UsersTableProps) => {
   return (
     <div className="w-full">
       <table className="max-w-full bg-white border border-gray-300">
@@ -16,6 +22,7 @@ const UsersTable = ({ users, canCreateUser, canUpdateUser, canDeleteUser }: User
           canCreateUser={canCreateUser}
           canUpdateUser={canUpdateUser} 
           canDeleteUser={canDeleteUser}
+          fetchUsers={fetchUsers}
         />
       </table>
     </div>

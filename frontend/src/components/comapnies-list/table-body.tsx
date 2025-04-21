@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { TableBodyProps } from './types';
 import Actions from './actions';
 
-const TableBody = ({ companies, canDeleteCompany, canUpdateCompany }: TableBodyProps) => {
+const TableBody = ({ companies, canDeleteCompany, canUpdateCompany, fetchCompanies }: TableBodyProps) => {
 
   return (
     <tbody>
@@ -34,6 +34,7 @@ const TableBody = ({ companies, canDeleteCompany, canUpdateCompany }: TableBodyP
                 company={company}
                 canDeleteCompany={canDeleteCompany}
                 canUpdateCompany={canUpdateCompany}
+                fetchCompanies={fetchCompanies}
               />
             </td>
           )}

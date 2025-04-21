@@ -4,7 +4,8 @@ import Actions from './actions';
 const ProductsTable = ({
   products,
   canUpdateProduct,
-  canDeleteProduct
+  canDeleteProduct,
+  fetchProducts
 }: BodyProps) => {
 
   return (
@@ -20,6 +21,7 @@ const ProductsTable = ({
               product={product} 
               canUpdateProduct={canUpdateProduct} 
               canDeleteProduct={canDeleteProduct} 
+              fetchProducts={fetchProducts}
             />
           </td>
         </tr>

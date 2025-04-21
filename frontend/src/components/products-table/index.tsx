@@ -5,7 +5,8 @@ import Body from './body';
 const ProductsTable = ({
   products,
   canUpdateProduct,
-  canDeleteProduct
+  canDeleteProduct,
+  fetchProducts
 }: ProductsTableProps) => {
 
   if (products.length === 0) {
@@ -28,6 +29,7 @@ const ProductsTable = ({
           products={products}
           canUpdateProduct={canUpdateProduct}
           canDeleteProduct={canDeleteProduct}
+          fetchProducts={fetchProducts}
         />
       </table>
     </div>

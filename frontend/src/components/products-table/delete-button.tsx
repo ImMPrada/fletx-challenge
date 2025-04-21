@@ -3,13 +3,18 @@ import { Button } from '../ui';
 import Loading from '../loading';
 import { useDeleteProduct } from '../../hooks/use-delete-product';
 
-const DeleteButton = ({ productId }: { productId: string }) => {
+const DeleteButton = ({ productId, fetchProducts }: { productId: string, fetchProducts: () => void }) => {
   const { deleteProduct, isLoading: isDeleting } = useDeleteProduct();
+
+  const handleClick = async () => {
+    await deleteProduct(productId);
+    fetchProducts();
+  }
 
   return (
     <Button 
       variant="warning"
-      onClick={() => deleteProduct(productId)}
+      onClick={handleClick}
       type="button"
       label={isDeleting ? <Loading/> : <TrashIcon/>}
     />

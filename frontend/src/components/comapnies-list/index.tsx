@@ -43,6 +43,7 @@ const CompaniesList = ({
           companies={companies}
           canDeleteCompany={canDeleteCompany}
           canUpdateCompany={canUpdateCompany}
+          fetchCompanies={fetchCompanies}
         />
       ) : (
         <p>No hay empresas disponibles</p>

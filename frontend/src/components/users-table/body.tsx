@@ -1,7 +1,7 @@
 import { BodyProps } from './types';
 import Actions from './actions';
 
-const Body = ({ users, canCreateUser, canUpdateUser, canDeleteUser }: BodyProps) => {
+const Body = ({ users, canCreateUser, canUpdateUser, canDeleteUser, fetchUsers }: BodyProps) => {
   return (
     <tbody>
       {users.map((user) => (
@@ -30,6 +30,7 @@ const Body = ({ users, canCreateUser, canUpdateUser, canDeleteUser }: BodyProps)
                 user={user}
                 canUpdateUser={canUpdateUser}
                 canDeleteUser={canDeleteUser}
+                fetchUsers={fetchUsers}
               />
             </td>
           )}
