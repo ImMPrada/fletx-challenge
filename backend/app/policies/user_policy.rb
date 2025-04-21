@@ -3,6 +3,10 @@ class UserPolicy < ApplicationPolicy
     user.can?("users.list")
   end
 
+  def create?
+    user.can?("users.create")
+  end
+
   class Scope < Scope
     def resolve
       return scope.none unless user.can?("users.list")

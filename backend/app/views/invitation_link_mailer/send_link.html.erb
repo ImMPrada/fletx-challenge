@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body {
+        text-align: center;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 20px 0;
+      }
+      p {
+        margin: 16px 0;
+      }
+      .button {
+        display: inline-block;
+        background-color: #9333EA;
+        color: white !important;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: medium;
+        text-decoration: none;
+        margin: 10px 0;
+      }
+      .button:hover {
+        background-color: #7928CA;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="margin: 0 auto; max-width: 600px; text-align: center;">
+      <h1>¡Hola <%= @user.name %>!</h1>
+      <p>
+        Te han invitado a Fletx challenge platform. A la compañía <%= @user.company.name %>. Haz click en el siguiente enlace para iniciar sesión:
+      </p>
+      <p>
+        <a href="<%= @url %>" class="button">Iniciar sesión</a>
+      </p>
+      <p>
+        Este link expirará pronto, y es de un solo uso, así que úsalo lo antes posible. Sin embargo, ya puedes iniciar sesión en la plataforma, si este link venció.
+      </p>
+      <p>¡Gracias y que tengas un buen día!</p>
+    </div>
+  </body>
+</html> 
