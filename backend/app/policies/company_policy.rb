@@ -15,6 +15,10 @@ class CompanyPolicy < ApplicationPolicy
     user.can?("companies.update")
   end
 
+  def destroy?
+    user.can?("companies.delete")
+  end
+
   class Scope < Scope
     def resolve
       return scope.none unless user.can?("companies.list")

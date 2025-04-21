@@ -12,7 +12,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user.can?("users.update")
+    user.can?("users.read")
+  end
+
+  def destroy?
+    user.can?("users.delete")
   end
 
   class Scope < Scope

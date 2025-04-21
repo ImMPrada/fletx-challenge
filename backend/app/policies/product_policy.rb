@@ -15,6 +15,10 @@ class ProductPolicy < ApplicationPolicy
     user.can?("products.read")
   end
 
+  def destroy?
+    user.can?("products.delete")
+  end
+
   class Scope < Scope
     def resolve
       return scope.none unless user.can?("products.list")

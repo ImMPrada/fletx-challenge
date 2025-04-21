@@ -25,6 +25,13 @@ module Api
         @company = service.call!
       end
 
+      def destroy
+        @company = Company.find(params[:id])
+        authorize @company
+
+        @company.destroy
+      end
+
       private
 
       def company_params
