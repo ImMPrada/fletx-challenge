@@ -104,17 +104,23 @@ const Company = () => {
                 name: user.name,
                 lastName: user.last_name,
                 email: user.email,
-                workPosition: user.work_position || '',
-                role: { 
-                  id: Number(user.role_id) || 0,
-                  code: user.role_id?.toString() || '', 
-                  description: user.role_id?.toString() || 'N/A'
+                workPosition: user.work_position,
+                phoneNumber: user.phone_number,
+                salary: user.salary ? Number(user.salary) : undefined,
+                role: {
+                  id: user.role_id,
+                  code: "USER",
+                  description: "Usuario"
                 },
-                company: { 
-                  id: Number(company.id), 
-                  name: company.name 
+                company: {
+                  id: Number(user.company_id),
+                  name: company.name
                 }
               }))} 
+              canCreateUser={false} 
+              canUpdateUser={false}
+              canDeleteUser={false}
+              fetchUsers={() => {}}
             />
           </div>
         </div>

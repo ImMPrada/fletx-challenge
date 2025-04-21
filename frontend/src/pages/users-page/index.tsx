@@ -9,13 +9,34 @@ import Loading from '../../components/loading';
 import UsersList from '../../components/users-list';
 
 const UsersPage = () => {
-  const { checkFeature, isLoading: isCheckingFeature, can: canListUsers } = useFeatureCheck();
+  const {
+    checkFeature: checkListUsers,
+    isLoading: isCheckingListUsers,
+    can: canListUsers,
+  } = useFeatureCheck();
+  const {
+    checkFeature: checkCreateUser,
+    isLoading: isCheckingCreateUser,
+    can: canCreateUser
+  } = useFeatureCheck();
+  const {
+    checkFeature: checkUpdateUser,
+    isLoading: isCheckingUpdateUser,
+    can: canUpdateUser
+  } = useFeatureCheck();
+  const {
+    checkFeature: checkDeleteUser,
+    isLoading: isCheckingDeleteUser,
+    can: canDeleteUser
+  } = useFeatureCheck();
   const { setFlash } = useContext(FlashContext);
   const navigate = useNavigate();
   
   useEffect(() => {
-    checkFeature(FEATURES.VIEW_USERS);
-   
+    checkListUsers(FEATURES.VIEW_USERS);
+    checkCreateUser(FEATURES.CREATE_USER);
+    checkUpdateUser(FEATURES.UPDATE_USER);
+    checkDeleteUser(FEATURES.DELETE_USER);
   }, []); 
 
   useEffect(() => {
@@ -27,7 +48,7 @@ const UsersPage = () => {
     }
   }, [canListUsers]);
 
-  if (isCheckingFeature) {
+  if (isCheckingListUsers || isCheckingCreateUser || isCheckingUpdateUser || isCheckingDeleteUser) {
     return (
       <ContainerWithFloatingNavbar>
         <Loading />
@@ -37,7 +58,11 @@ const UsersPage = () => {
 
   return (
     <ContainerWithFloatingNavbar>
-      <UsersList />
+      <UsersList
+        canCreateUser={canCreateUser}
+        canUpdateUser={canUpdateUser}
+        canDeleteUser={canDeleteUser}
+      />
     </ContainerWithFloatingNavbar>
   );
 };

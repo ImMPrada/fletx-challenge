@@ -23,7 +23,6 @@ module Api
 
       def show
         authorize User
-
         @user = User.find(params[:id])
       end
 
