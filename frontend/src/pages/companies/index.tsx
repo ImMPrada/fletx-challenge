@@ -8,13 +8,38 @@ import { FEATURES } from '../../data/features';
 import CompaniesList from '../../components/comapnies-list';
 
 const Companies = () => {
-  const { checkFeature, isLoading: isCheckingFeature, can: canListCompanies } = useFeatureCheck();
+  const { 
+    checkFeature: checkListCompanies,
+    isLoading: isCheckingListCompanies,
+    can: canListCompanies
+  } = useFeatureCheck();
+
+  const {
+    checkFeature: checkDeleteCompany,
+    isLoading: isCheckingDeleteCompany,
+    can: canDeleteCompany
+  } = useFeatureCheck();
+
+  const {
+    checkFeature: checkCreateCompany,
+    isLoading: isCheckingCreateCompany,
+    can: canCreateCompany
+  } = useFeatureCheck();
+
+  const {
+    checkFeature: checkUpdateCompany,
+    isLoading: isCheckingUpdateCompany,
+    can: canUpdateCompany
+  } = useFeatureCheck();
+
   const { setFlash } = useContext(FlashContext);
   const navigate = useNavigate();
   
   useEffect(() => {
-    checkFeature(FEATURES.LIST_COMPANIES);
-   
+    checkListCompanies(FEATURES.LIST_COMPANIES);
+    checkDeleteCompany(FEATURES.DELETE_COMPANY);
+    checkCreateCompany(FEATURES.CREATE_COMPANY);
+    checkUpdateCompany(FEATURES.UPDATE_COMPANY);
   }, []); 
 
   useEffect(() => {
@@ -26,7 +51,7 @@ const Companies = () => {
     }
   }, [canListCompanies, navigate, setFlash]);
 
-  if (isCheckingFeature) {
+  if (isCheckingListCompanies || isCheckingDeleteCompany || isCheckingCreateCompany || isCheckingUpdateCompany) {
     return (
       <ContainerWithFloatingNavbar>
         <Loading />
@@ -36,7 +61,11 @@ const Companies = () => {
 
   return (
     <ContainerWithFloatingNavbar>
-      <CompaniesList />
+      <CompaniesList
+        canDeleteCompany={canDeleteCompany ?? false}
+        canCreateCompany={canCreateCompany ?? false}
+        canUpdateCompany={canUpdateCompany ?? false}
+      />
     </ContainerWithFloatingNavbar>
   );
 };

@@ -3,20 +3,22 @@ import { useProductsList } from '../../hooks/use-products-list';
 import { FlashContext } from '../../contexts/flash-context';
 import Loading from '../loading';
 import ProductsTable from '../products-table';
-import { useFeatureCheck } from '../../hooks/use-feature-check';
-import { FEATURES } from '../../data/features';
-import { Button } from '../../components/ui';
+import { Button } from '../ui';
 import { useNavigate } from 'react-router-dom';
+import { PlusIcon } from '@primer/octicons-react';
+import { ProductsListProps } from './types';
 
-const ProductsList = () => {
+const ProductsList = ({
+  canCreateProduct,
+  canUpdateProduct,
+  canDeleteProduct
+}: ProductsListProps) => {
   const { products, isLoading, error, fetchProducts } = useProductsList();
   const { setFlash } = useContext(FlashContext);
-  const { checkFeature } = useFeatureCheck();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
-    checkFeature(FEATURES.CREATE_PRODUCT);
   }, []);
 
   useEffect(() => {
@@ -30,20 +32,25 @@ const ProductsList = () => {
   }
 
   return (
-    <div>
+    <>
       <div className="flex justify-center gap-6 items-center mb-6">
         <h1 className="text-2xl font-bold">Productos</h1>
-
-        <Button 
-          label="Agregar" 
-          type="button" 
-          variant="primary" 
-          onClick={() => navigate('/products/new')}
-        />
-
+        {canCreateProduct && (
+          <Button 
+            label={<PlusIcon />}
+            type="button" 
+            variant="primary" 
+            onClick={() => navigate('/products/new')}
+          />
+        )}
       </div>
-      <ProductsTable products={products} />
-    </div>
+
+      <ProductsTable
+        products={products}
+        canUpdateProduct={canUpdateProduct}
+        canDeleteProduct={canDeleteProduct}
+      />
+    </>
   );
 };
 

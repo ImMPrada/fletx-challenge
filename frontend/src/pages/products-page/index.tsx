@@ -8,12 +8,38 @@ import Loading from '../../components/loading';
 import ProductsList from '../../components/products-list';
 
 const ProductsPage = () => {
-  const { checkFeature, isLoading: isCheckingFeature, can: canListProducts } = useFeatureCheck();
+  const {
+    checkFeature: checkListProducts,
+    isLoading: isCheckingListProducts,
+    can: canListProducts
+  } = useFeatureCheck();
+
+  const {
+    checkFeature: checkCreateProduct,
+    isLoading: isCheckingCreateProduct,
+    can: canCreateProduct
+  } = useFeatureCheck();
+
+  const {
+    checkFeature: checkUpdateProduct,
+    isLoading: isCheckingUpdateProduct,
+    can: canUpdateProduct
+  } = useFeatureCheck();
+
+  const {
+    checkFeature: checkDeleteProduct,
+    isLoading: isCheckingDeleteProduct,
+    can: canDeleteProduct
+  } = useFeatureCheck();
+ 
   const { setFlash } = useContext(FlashContext);
   const navigate = useNavigate();
   
   useEffect(() => {
-    checkFeature(FEATURES.LIST_PRODUCTS);
+    checkListProducts(FEATURES.LIST_PRODUCTS);
+    checkCreateProduct(FEATURES.CREATE_PRODUCT);
+    checkUpdateProduct(FEATURES.UPDATE_PRODUCT);
+    checkDeleteProduct(FEATURES.DELETE_PRODUCT);
   }, []); 
 
   useEffect(() => {
@@ -25,7 +51,7 @@ const ProductsPage = () => {
     }
   }, [canListProducts, navigate, setFlash]);
 
-  if (isCheckingFeature) {
+  if (isCheckingListProducts || isCheckingCreateProduct || isCheckingUpdateProduct || isCheckingDeleteProduct) {
     return (
       <ContainerWithFloatingNavbar>
         <Loading />
@@ -35,7 +61,11 @@ const ProductsPage = () => {
 
   return (
     <ContainerWithFloatingNavbar>
-      <ProductsList />
+      <ProductsList
+        canCreateProduct={canCreateProduct}
+        canUpdateProduct={canUpdateProduct}
+        canDeleteProduct={canDeleteProduct}
+      />
     </ContainerWithFloatingNavbar>
   );
 };
