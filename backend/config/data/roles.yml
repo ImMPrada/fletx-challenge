@@ -1,5 +1,5 @@
 - code: admin
-  description: all permissions
+  description: tiene todos los permisos
   features:
     - companies.create
     - companies.read
@@ -11,8 +11,14 @@
     - users.delete
     - users.list
     - users.me
+    - products.create
+    - products.read
+    - products.update
+    - products.list
 - code: visitor
-  description: it doesn't have RU (of CRUD) permissions
+  description: solo permisos de lectura
   features:
     - companies.list
     - users.me
+    - users.list
+    - products.list

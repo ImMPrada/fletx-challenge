@@ -20,3 +20,11 @@
   description: List users
 - code: users.me
   description: Read my user
+- code: products.create
+  description: Create products
+- code: products.read
+  description: Read products
+- code: products.update
+  description: Update products
+- code: products.list
+  description: List products
