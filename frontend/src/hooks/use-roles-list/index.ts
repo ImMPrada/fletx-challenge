@@ -16,12 +16,19 @@ export const useRolesList = (): UseRolesListReturn => {
   const { fetchData } = useApi();
 
   const fetchRoles = async (): Promise<void> => {
-    setIsLoading(true);
-    setError(null);
+    try {
+      setIsLoading(true);
+      setError(null);
 
-    const response = await fetchData<ApiResponse>('/api/v1/roles', {}, true);
-    setRoles(response.data || []);
-    setIsLoading(false);
+      const response = await fetchData<ApiResponse>('/api/v1/roles', {}, true);
+      setRoles(response.data || []);
+    } catch (err) {
+      setRoles([]);
+      setError(err instanceof Error ? err.message : 'Error al obtener la lista de roles');
+      console.error('Error fetching roles:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return {

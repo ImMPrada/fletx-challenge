@@ -6,6 +6,7 @@ import NewCompany from '../pages/new-company';
 import Companies from '../pages/companies';
 import CompanyPage from '../pages/company-page';
 import EditCompany from '../pages/edit-company';
+import UsersPage from '../pages/users-page';
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/magic-login" element={<MagicLogin />} />
+      <Route path="/users" element={<UsersPage />} />
       <Route path="/companies" element={<Companies />} />
       <Route path="/companies/:id" element={<CompanyPage />} />
       <Route path="/companies/new" element={<NewCompany />} />

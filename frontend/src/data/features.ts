@@ -3,4 +3,8 @@ export const FEATURES = {
   LIST_COMPANIES: 'companies.list',
   VIEW_COMPANY: 'companies.read',
   UPDATE_COMPANY: 'companies.update',
+  VIEW_USERS: 'users.list',
+  CREATE_USER: 'users.create',
+  UPDATE_USER: 'users.update',
+  DELETE_USER: 'users.delete',
 };
