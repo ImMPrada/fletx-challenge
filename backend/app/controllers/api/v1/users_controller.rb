@@ -14,6 +14,19 @@ module Api
         deliver_invitation!
       end
 
+      def update
+        authorize User
+
+        service = Users::UpdateService.new(user_params, params[:id])
+        @user = service.call!
+      end
+
+      def show
+        authorize User
+
+        @user = User.find(params[:id])
+      end
+
       private
 
       def user_params

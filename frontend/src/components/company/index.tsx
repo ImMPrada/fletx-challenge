@@ -3,6 +3,7 @@ import { useFetchCompany } from "../../hooks/use-fetch-company";
 import { useEffect } from "react";
 import Loading from "../loading";
 import { Button } from "../ui";
+import UsersTable from "../users-table";
 
 const Company = () => {
   const { id } = useParams<{ id: string }>();
@@ -89,6 +90,44 @@ const Company = () => {
           </dl>
         </div>
       </div>
+
+      {company.users && company.users.length > 0 ? (
+        <div className="mt-8 bg-white shadow rounded-lg overflow-hidden">
+          <div className="px-6 py-5 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-800">Usuarios de la empresa</h2>
+            <p className="mt-1 text-sm text-gray-500">Lista de personas que trabajan en {company.name}</p>
+          </div>
+          <div className="px-4 py-3">
+            <UsersTable 
+              users={company.users.map(user => ({
+                id: Number(user.id),
+                name: user.name,
+                lastName: user.last_name,
+                email: user.email,
+                workPosition: user.work_position || '',
+                role: { 
+                  id: Number(user.role_id) || 0,
+                  code: user.role_id?.toString() || '', 
+                  description: user.role_id?.toString() || 'N/A'
+                },
+                company: { 
+                  id: Number(company.id), 
+                  name: company.name 
+                }
+              }))} 
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="mt-8 bg-white shadow rounded-lg overflow-hidden">
+          <div className="px-6 py-5 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-800">Usuarios de la empresa</h2>
+          </div>
+          <div className="px-6 py-8 text-center text-gray-500">
+            No hay usuarios registrados para esta empresa
+          </div>
+        </div>
+      )}
     </div>
   );
 };

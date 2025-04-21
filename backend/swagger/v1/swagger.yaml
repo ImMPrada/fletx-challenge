@@ -348,6 +348,59 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error_response"
+  "/api/v1/users/{id}":
+    put:
+      summary: Actualiza un usuario existente
+      tags:
+      - Usuarios
+      description: Esta respuesta ocurre cuando los datos proporcionados no son válidos
+        para actualizar el usuario.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      parameters:
+      - name: id
+        in: path
+        description: ID del usuario a actualizar
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: usuario actualizado correctamente
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/user"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: usuario, rol o empresa no encontrada
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '422':
+          description: entidad no procesable
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/user_request"
 components:
   schemas:
     magic_link_success_response:

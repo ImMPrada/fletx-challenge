@@ -4,6 +4,8 @@ import { useCreateUser } from '../../hooks/use-create-user';
 import { useEffect, useState, useContext } from 'react';
 import { FlashContext } from '../../contexts/flash-context';
 import { useNavigate } from 'react-router-dom';
+import { useUpdateUser } from '../../hooks/use-update-user';
+import { UpdateUserParams } from '../../hooks/use-update-user/types';
 
 // Tipos temporales hasta crear el hook real
 interface User {
@@ -17,19 +19,6 @@ interface User {
   phone_number?: string;
   salary?: string;
 }
-
-// Hook temporal hasta crear el hook real
-const useUpdateUser = () => {
-  return {
-    updateUser: async (id: string, data: { key: 'user', value: User }) => {
-      console.log('Actualizando usuario...', id, data);
-      return null;
-    },
-    isSuccess: false,
-    validationErrors: null,
-    isLoading: false
-  };
-};
 
 interface UserFormProps {
   initialData?: User | null;
@@ -116,7 +105,7 @@ const UserForm = ({ initialData = null, mode = 'create' }: UserFormProps) => {
       console.log('Datos del usuario:', data);
       
       // Preparamos el cuerpo de la petición con los datos del formulario
-      const requestBody = {
+      const requestBody: UpdateUserParams = {
         user: {
           name: data.name,
           last_name: data.lastName,
@@ -133,13 +122,7 @@ const UserForm = ({ initialData = null, mode = 'create' }: UserFormProps) => {
         if (mode === 'create') {
           await createUser(requestBody);
         } else if (mode === 'edit' && initialData) {
-          await updateUser(initialData.id, { 
-            key: 'user', 
-            value: { 
-              id: initialData.id,
-              ...requestBody.user 
-            } 
-          });
+          await updateUser(parseInt(initialData.id), requestBody);
         }
       } catch (error) {
         console.error('Error inesperado:', error);

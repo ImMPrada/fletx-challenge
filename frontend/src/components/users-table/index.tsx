@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { UsersTableProps } from './types';
+import {PencilIcon} from '@primer/octicons-react'
 
 const UsersTable = ({ users }: UsersTableProps) => {
   return (
@@ -12,34 +13,34 @@ const UsersTable = ({ users }: UsersTableProps) => {
             <th className="py-2 px-4 border-b text-left">Cargo</th>
             <th className="py-2 px-4 border-b text-left">Rol</th>
             <th className="py-2 px-4 border-b text-left">Empresa</th>
+            <th className="py-2 px-4 border-b text-left">Salario</th>
+            <th className="py-2 px-4 border-b text-left">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id} className="hover:bg-gray-50">
               <td className="py-2 px-4 border-b">
-                <Link to={`/users/${user.id}`}>
-                  {user.name || '-'} {user.lastName || ''}
-                </Link>
+                {user.name || '-'} {user.lastName || ''}
               </td>
               <td className="py-2 px-4 border-b">
-                <Link to={`/users/${user.id}`}>
-                  {user.email}
-                </Link>
+                {user.email}
               </td>
               <td className="py-2 px-4 border-b">
-                <Link to={`/users/${user.id}`}>
-                  {user.workPosition || '-'}
-                </Link>
+                {user.workPosition || '-'}
               </td>
               <td className="py-2 px-4 border-b">
-                <Link to={`/users/${user.id}`}>
-                  {user.role.code}: {user.role.description}
-                </Link>
+                {user.role.code}: {user.role.description}
               </td>
               <td className="py-2 px-4 border-b">
-                <Link to={`/users/${user.id}`}>
-                  {user.company ? user.company.name : '-'}
+                {user.company ? user.company.name : '-'}
+              </td>
+              <td className="py-2 px-4 border-b">
+                {user.salary ? `$${Number(user.salary).toLocaleString()}` : '-'}
+              </td>
+              <td className="py-2 px-4 border-b">
+                <Link to={`/users/${user.id}/edit`}>
+                  <PencilIcon size={18} />
                 </Link>
               </td>
             </tr>
@@ -50,4 +51,4 @@ const UsersTable = ({ users }: UsersTableProps) => {
   );
 };
 
-export default UsersTable; 
+export default UsersTable;

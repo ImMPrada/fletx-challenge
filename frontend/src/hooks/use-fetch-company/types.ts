@@ -1,3 +1,5 @@
+import { User } from "../use-fetch-user/types";
+
 export interface City {
   id: number;
   name: string;
@@ -18,6 +20,7 @@ export interface Company {
   liabilities: string;
   department: Department | null;
   city: City | null;
+  users: User[];
 }
 
 export interface UseFetchCompanyReturn {
