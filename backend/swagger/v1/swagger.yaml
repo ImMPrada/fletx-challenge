@@ -169,6 +169,46 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/company_request"
+    delete:
+      summary: Elimina una empresa existente
+      tags:
+      - Empresas
+      description: Este endpoint permite eliminar una empresa específica
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: empresa eliminada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Empresa eliminada correctamente"
+                  success:
+                    type: boolean
+                    example: true
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: empresa no encontrada
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
   "/api/v1/departments":
     get:
       summary: Obtiene listado de departamentos
@@ -444,6 +484,46 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/product_request"
+    delete:
+      summary: Elimina un producto existente
+      tags:
+      - Productos
+      description: Este endpoint permite eliminar un producto específico
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Producto eliminado correctamente"
+                  success:
+                    type: boolean
+                    example: true
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: producto no encontrado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
   "/api/v1/users":
     post:
       summary: Crea un nuevo usuario
@@ -513,6 +593,46 @@ paths:
               schema:
                 "$ref": "#/components/schemas/error_response"
   "/api/v1/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: ID del usuario
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Obtiene detalles de un usuario específico
+      tags:
+      - Usuarios
+      description: Esta respuesta ocurre cuando no existe un usuario con el ID proporcionado.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: detalle de usuario
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/user"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: usuario no encontrado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
     put:
       summary: Actualiza un usuario existente
       tags:
@@ -522,13 +642,6 @@ paths:
       security:
       - bearer_auth: []
       - api_key_auth: []
-      parameters:
-      - name: id
-        in: path
-        description: ID del usuario a actualizar
-        required: true
-        schema:
-          type: integer
       responses:
         '200':
           description: usuario actualizado correctamente
@@ -565,6 +678,46 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/user_request"
+    delete:
+      summary: Elimina un usuario existente
+      tags:
+      - Usuarios
+      description: Este endpoint permite eliminar un usuario específico
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: usuario eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario eliminado correctamente"
+                  success:
+                    type: boolean
+                    example: true
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: usuario no encontrado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
 components:
   schemas:
     magic_link_success_response:

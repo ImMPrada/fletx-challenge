@@ -28,3 +28,9 @@
   description: Update products
 - code: products.list
   description: List products
+- code: products.delete
+  description: Delete products
+- code: companies.delete
+  description: Delete companies
+- code: users.delete
+  description: Delete users
