@@ -6,6 +6,6 @@ class AddFieldsToUsers < ActiveRecord::Migration[8.0]
     add_column :users, :phone_number, :string
     add_column :users, :salary, :decimal, precision: 10, scale: 2
 
-    add_reference :users, :company, foreign_key: true
+    add_reference :users, :company, foreign_key: true, null: true
   end
 end

@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :magic_link_tokens, dependent: :destroy
 
   belongs_to :role
+  belongs_to :company, optional: true
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 

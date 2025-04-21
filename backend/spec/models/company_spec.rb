@@ -15,5 +15,6 @@ RSpec.describe Company, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:department) }
     it { is_expected.to belong_to(:city) }
+    it { is_expected.to have_many(:users).dependent(:destroy) }
   end
 end
