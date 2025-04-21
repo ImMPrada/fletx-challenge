@@ -8,7 +8,12 @@ export const useApi = (): UseApiReturn => {
   const { setFlash } = useContext(FlashContext);
   const navigate = useNavigate();
 
-  const fetchData = useCallback(async <T>(endpoint: string, options: RequestOptions = {}, formatedResponse: boolean = false): Promise<T> => {
+  const fetchData = useCallback(async <T>(
+    endpoint: string,
+    options: RequestOptions = {},
+    formatedResponse: boolean = false,
+    flashMessage: boolean = true
+  ): Promise<T> => {
     const token = sessionStorage.getItem('jwt');
     
     const headers: Record<string, string> = {
@@ -56,7 +61,7 @@ export const useApi = (): UseApiReturn => {
       // Manejamos el caso de sesión expirada
       if (response.status === 401) {
         sessionStorage.removeItem('jwt');
-        setFlash('Sesión expirada o token inválido', 'error');
+        if(flashMessage) setFlash('Sesión expirada o token inválido', 'error');
         navigate('/login');
       }
 

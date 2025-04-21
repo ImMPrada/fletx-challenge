@@ -110,6 +110,45 @@ RSpec.configure do |config|
             items: { '$ref' => '#/components/schemas/department' },
             description: 'Lista de departamentos con sus ciudades asociadas'
           },
+          role: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              code: { type: :string, example: 'admin' },
+              description: { type: :string, example: 'Administrador' }
+            },
+            required: [ 'id', 'code', 'description' ],
+            description: 'Información de un rol de usuario'
+          },
+          user: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              email: { type: :string, example: 'usuario@example.com' },
+              name: { type: :string, example: 'Juan' },
+              lastName: { type: :string, example: 'Pérez' },
+              workPosition: { type: :string, example: 'Gerente' },
+              phoneNumber: { type: :string, example: '3001234567' },
+              salary: { type: :number, format: :float, example: 5000000.0 },
+              role: { '$ref' => '#/components/schemas/role' },
+              company: {
+                type: :object,
+                nullable: true,
+                properties: {
+                  id: { type: :integer, example: 1 },
+                  name: { type: :string, example: 'FLETX Inc.' }
+                },
+                required: [ 'id', 'name' ]
+              }
+            },
+            required: [ 'id', 'email', 'role' ],
+            description: 'Información de un usuario'
+          },
+          users_response: {
+            type: :array,
+            items: { '$ref' => '#/components/schemas/user' },
+            description: 'Lista de usuarios'
+          },
           company: {
             type: :object,
             properties: {

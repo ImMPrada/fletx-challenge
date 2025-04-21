@@ -8,5 +8,5 @@ export interface RequestOptions {
 }
 
 export interface UseApiReturn {
-  fetchData: <T>(endpoint: string, options?: RequestOptions, formatedResponse?: boolean) => Promise<T>;
+  fetchData: <T>(endpoint: string, options?: RequestOptions, formatedResponse?: boolean, flashMessage?: boolean) => Promise<T>;
 }
