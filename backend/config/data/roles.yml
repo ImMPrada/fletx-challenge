@@ -6,9 +6,15 @@
     - companies.update
     - companies.delete
     - companies.list
+    - users.create
+    - users.read
+    - users.update
+    - users.delete
+    - users.list
+    - users.me
 - code: visitor
   description: it doesn't have RU (of CRUD) permissions
   features:
-    - companies.read
     - companies.list
-
+    - users.read
+    - users.me

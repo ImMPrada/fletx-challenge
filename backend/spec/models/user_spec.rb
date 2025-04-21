@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   describe "associations" do
     it { should have_many(:magic_link_tokens).dependent(:destroy) }
     it { should belong_to(:role) }
+    it { should belong_to(:company).optional }
   end
 
   describe '#can?' do

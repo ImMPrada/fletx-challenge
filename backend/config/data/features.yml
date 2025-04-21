@@ -8,3 +8,15 @@
   description: Delete companies
 - code: companies.list
   description: List companies
+- code: users.create
+  description: Create users
+- code: users.read
+  description: Read users
+- code: users.update
+  description: Update users
+- code: users.delete
+  description: Delete users
+- code: users.list
+  description: List users
+- code: users.me
+  description: Read my user
