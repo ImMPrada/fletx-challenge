@@ -44,6 +44,7 @@ Authorization: Bearer <jwt>
    │
    ▼
 🚪 Logout → sessionStorage.removeItem("jwt")
+```
 
 El Magic Link tiene un tiempo de expiración. Si el usuario no hace clic antes de ese límite, el token se invalida.
 
