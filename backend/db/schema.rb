@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_21_013521) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_074139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,6 +84,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_013521) do
     t.index ["user_id"], name: "index_magic_link_tokens_on_user_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "category", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_products_on_company_id"
+    t.index ["name"], name: "index_products_on_name"
+  end
+
   create_table "role_features", force: :cascade do |t|
     t.bigint "role_id", null: false
     t.bigint "feature_id", null: false
@@ -126,6 +137,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_013521) do
   add_foreign_key "companies", "cities"
   add_foreign_key "companies", "departments"
   add_foreign_key "magic_link_tokens", "users"
+  add_foreign_key "products", "companies"
   add_foreign_key "role_features", "features"
   add_foreign_key "role_features", "roles"
   add_foreign_key "users", "companies"
