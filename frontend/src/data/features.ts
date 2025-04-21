@@ -7,4 +7,8 @@ export const FEATURES = {
   CREATE_USER: 'users.create',
   UPDATE_USER: 'users.update',
   DELETE_USER: 'users.delete',
+  LIST_PRODUCTS: 'products.list',
+  CREATE_PRODUCT: 'products.create',
+  VIEW_PRODUCT: 'products.read',
+  UPDATE_PRODUCT: 'products.update',
 };

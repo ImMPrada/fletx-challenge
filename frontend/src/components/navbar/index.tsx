@@ -26,6 +26,9 @@ const Navbar = ({ title }: NavbarProps) => {
         <div className="text-sm text-gray-500 hover:text-purple cursor-pointer">
           <Link to="/users">Usuarios</Link>
         </div>
+        <div className="text-sm text-gray-500 hover:text-purple cursor-pointer">
+          <Link to="/products">Productos</Link>
+        </div>
       </div>
 
       <Button
