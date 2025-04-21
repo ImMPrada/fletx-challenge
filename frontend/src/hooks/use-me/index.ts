@@ -17,6 +17,8 @@ export const useMe = (): UseMeReturn => {
       // La lógica de verificación de token y errores de autenticación 
       // ya está manejada por useApi internamente
       const userData = await fetchData<User>('/api/v1/me');
+
+      console.log(userData);
       
       setUser(userData);
       setIsAuthenticated(true);
