@@ -4,19 +4,37 @@ import { useCreateCompany } from '../../hooks/use-create-company';
 import { useEffect, useState, useContext } from 'react';
 import { FlashContext } from '../../contexts/flash-context';
 import { useNavigate } from 'react-router-dom';
+import { Company } from '../../hooks/use-fetch-company/types';
+import { useUpdateCompany } from '../../hooks/use-update-company';
 
+interface CompanyFormProps {
+  initialData?: Company | null;
+  mode?: 'create' | 'edit';
+}
 
-const CompanyForm = () => {
-  const { formState, dispatch, handleSubmit } = useCompanyForm();
+const CompanyForm = ({ initialData = null, mode = 'create' }: CompanyFormProps) => {
+  const { formState, dispatch, handleSubmit } = useCompanyForm(initialData);
   const { setFlash } = useContext(FlashContext);
   const { 
     createCompany, 
-    isSuccess, 
-    validationErrors, 
-    isLoading
+    isSuccess: isCreateSuccess, 
+    validationErrors: createValidationErrors, 
+    isLoading: isCreating
   } = useCreateCompany();
+  
+  const {
+    updateCompany,
+    isSuccess: isUpdateSuccess,
+    validationErrors: updateValidationErrors,
+    isLoading: isUpdating
+  } = useUpdateCompany();
+  
   const [formSubmitted, setFormSubmitted] = useState(false);
   const navigate = useNavigate();
+
+  const isLoading = mode === 'create' ? isCreating : isUpdating;
+  const validationErrors = mode === 'create' ? createValidationErrors : updateValidationErrors;
+  const isSuccess = mode === 'create' ? isCreateSuccess : isUpdateSuccess;
 
   // Manejar errores de validación de la API
   useEffect(() => {
@@ -53,11 +71,14 @@ const CompanyForm = () => {
   // Manejar mensaje de éxito o error general
   useEffect(() => {
     if (isSuccess) {
-      console.log('Empresa creada exitosamente');
+      console.log(mode === 'create' ? 'Empresa creada exitosamente' : 'Empresa actualizada exitosamente');
       setFormSubmitted(false);
 
-      setFlash('Empresa creada exitosamente', 'success');
-      navigate('/empresas'); 
+      setFlash(
+        mode === 'create' ? 'Empresa creada exitosamente' : 'Empresa actualizada exitosamente', 
+        'success'
+      );
+      navigate('/companies'); 
     }
    
   }, [isSuccess]);
@@ -82,8 +103,11 @@ const CompanyForm = () => {
       };
       
       try {
-        await createCompany(requestBody); 
-
+        if (mode === 'create') {
+          await createCompany(requestBody);
+        } else if (mode === 'edit' && initialData) {
+          await updateCompany(initialData.id, requestBody);
+        }
       } catch (error) {
         console.error('Error inesperado:', error);
       }
@@ -97,6 +121,7 @@ const CompanyForm = () => {
         dispatch={dispatch}
         handleSubmit={handleFormSubmit}
         isLoading={isLoading}
+        mode={mode}
       />
     </>
   );
