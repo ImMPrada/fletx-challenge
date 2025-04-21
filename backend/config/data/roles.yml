@@ -15,6 +15,9 @@
     - products.read
     - products.update
     - products.list
+    - products.delete
+    - companies.delete
+    - users.delete
 - code: visitor
   description: solo permisos de lectura
   features:
