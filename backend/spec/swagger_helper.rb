@@ -224,6 +224,41 @@ RSpec.configure do |config|
             },
             required: [ 'company' ],
             description: 'Solicitud para crear una nueva empresa'
+          },
+          product: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              name: { type: :string, example: 'Producto A' },
+              category: { type: :string, example: 'Electrónica' },
+              price: { type: :number, format: :float, example: 1500.0 },
+              company: {
+                type: :object,
+                properties: {
+                  id: { type: :integer, example: 1 },
+                  name: { type: :string, example: 'FLETX Inc.' }
+                }
+              }
+            },
+            required: [ 'id', 'name', 'category', 'price', 'company' ],
+            description: 'Información completa de un producto'
+          },
+          product_request: {
+            type: :object,
+            properties: {
+              product: {
+                type: :object,
+                properties: {
+                  name: { type: :string, example: 'Producto A' },
+                  category: { type: :string, example: 'Electrónica' },
+                  price: { type: :number, format: :float, example: 1500.0 },
+                  company_id: { type: :integer, example: 1 }
+                },
+                required: [ 'name', 'category', 'price', 'company_id' ]
+              }
+            },
+            required: [ 'product' ],
+            description: 'Solicitud para crear o actualizar un producto'
           }
         },
         securitySchemes: {

@@ -280,6 +280,170 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/error_response"
+  "/api/v1/products":
+    post:
+      summary: Crea un nuevo producto
+      tags:
+      - Productos
+      description: Esta respuesta ocurre cuando los datos proporcionados no son válidos
+        para crear un producto.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      parameters: []
+      responses:
+        '200':
+          description: producto creado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/product"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '422':
+          description: entidad no procesable
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/product_request"
+    get:
+      summary: Obtiene listado de productos
+      tags:
+      - Productos
+      description: Esta respuesta ocurre cuando el usuario no tiene los permisos necesarios
+        para listar productos.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: listado de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/product"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+  "/api/v1/products/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: ID del producto a consultar
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Obtiene detalles de un producto específico
+      tags:
+      - Productos
+      description: Esta respuesta ocurre cuando no existe un producto con el ID proporcionado.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      responses:
+        '200':
+          description: detalle de producto
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/product"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: producto no encontrado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+    put:
+      summary: Actualiza un producto existente
+      tags:
+      - Productos
+      description: Esta respuesta ocurre cuando los datos proporcionados no son válidos
+        para actualizar el producto.
+      security:
+      - bearer_auth: []
+      - api_key_auth: []
+      parameters:
+      - name: id
+        in: path
+        description: ID del producto a actualizar
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: producto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/product"
+        '401':
+          description: no autorizado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '403':
+          description: sin autorización para esta acción
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '404':
+          description: producto no encontrado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+        '422':
+          description: entidad no procesable
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_response"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/product_request"
   "/api/v1/users":
     post:
       summary: Crea un nuevo usuario
@@ -702,6 +866,65 @@ components:
       required:
       - company
       description: Solicitud para crear una nueva empresa
+    product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Producto A
+        category:
+          type: string
+          example: Electrónica
+        price:
+          type: number
+          format: float
+          example: 1500.0
+        company:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: FLETX Inc.
+      required:
+      - id
+      - name
+      - category
+      - price
+      - company
+      description: Información completa de un producto
+    product_request:
+      type: object
+      properties:
+        product:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Producto A
+            category:
+              type: string
+              example: Electrónica
+            price:
+              type: number
+              format: float
+              example: 1500.0
+            company_id:
+              type: integer
+              example: 1
+          required:
+          - name
+          - category
+          - price
+          - company_id
+      required:
+      - product
+      description: Solicitud para crear o actualizar un producto
   securitySchemes:
     bearer_auth:
       type: http
