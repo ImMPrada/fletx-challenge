@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_235019) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_013521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -110,6 +110,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_235019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id", null: false
+    t.string "name"
+    t.string "last_name"
+    t.string "work_position"
+    t.string "phone_number"
+    t.decimal "salary", precision: 10, scale: 2
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
@@ -121,5 +128,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_235019) do
   add_foreign_key "magic_link_tokens", "users"
   add_foreign_key "role_features", "features"
   add_foreign_key "role_features", "roles"
+  add_foreign_key "users", "companies"
   add_foreign_key "users", "roles"
 end
