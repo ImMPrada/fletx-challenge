@@ -21,6 +21,7 @@ export const useRolesList = (): UseRolesListReturn => {
 
     const response = await fetchData<ApiResponse>('/api/v1/roles', {}, true, false);
     setRoles(response.data || []);
+    setIsLoading(false);
   };
 
   return {

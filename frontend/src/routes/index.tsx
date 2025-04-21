@@ -8,6 +8,7 @@ import CompanyPage from '../pages/company-page';
 import EditCompany from '../pages/edit-company';
 import UsersPage from '../pages/users-page';
 import { RolesProvider } from '../contexts/roles-context';
+import NewUser from '../pages/new-user';
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/magic-login" element={<MagicLogin />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/new" element={<NewUser />} />
         <Route path="/companies" element={<Companies />} />
         <Route path="/companies/:id" element={<CompanyPage />} />
         <Route path="/companies/new" element={<NewCompany />} />
