@@ -1,8 +1,35 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📦 Instalación
 
-Currently, two official plugins are available:
+el repositorio tiene un archivo `.nvmrc` que especifica la versión de node que se debe usar; si tienes instalado el gestor de versiones de node `nvm`, puedes usarlo para instalar la versión especificada, por ejemplo:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Asi se instalaria la version que el archivo `.nvmrc` especifica:
+
+```bash
+nvm install
+```
+
+y asi se seleccionaría la version que indica el archivo `.nvmrc`:
+
+```bash
+nvm use
+```
+
+con la version instalada, puedes instalar las dependencias con:
+
+```bash
+npm install --save-dev
+```
+
+necesitas setear una variable de archivo en un archivo `.env` para que el frontend pueda comunicarse con el backend, que es el base donde se levantó el backend:
+
+```bash
+VITE_API_URL=http://localhost:3000
+```
+
+levanta el servidor con:
+
+```bash
+npm run dev
+```

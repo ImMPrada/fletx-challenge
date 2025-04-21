@@ -46,6 +46,13 @@ Estamos usando semillas para popular la base de datos con datos de ejemplos.
 rails db:seed
 ```
 
+requieres de un archivo `.env` para que el servidor pueda comunicarse con el frontend, que es el base donde se levantó el frontend:
+
+```bash
+FRONTEND_URL=http://localhost:5173
+MAILER_FROM=im.mprada+fletx@gmail.com
+```
+
 Inicia el servidor de desarrollo:
 
 ```bash
