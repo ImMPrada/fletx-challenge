@@ -127,22 +127,27 @@ RSpec.configure do |config|
               email: { type: :string, example: 'usuario@example.com' },
               name: { type: :string, example: 'Juan' },
               lastName: { type: :string, example: 'Pérez' },
-              workPosition: { type: :string, example: 'Gerente' },
+              workPosition: { type: :string, example: 'Gerente de Operaciones' },
               phoneNumber: { type: :string, example: '3001234567' },
-              salary: { type: :number, format: :float, example: 5000000.0 },
-              role: { '$ref' => '#/components/schemas/role' },
+              salary: { type: :number, format: :float, example: 50000.0 },
+              role: {
+                type: :object,
+                properties: {
+                  id: { type: :integer, example: 1 },
+                  code: { type: :string, example: 'admin' },
+                  description: { type: :string, example: 'Administrador' }
+                }
+              },
               company: {
                 type: :object,
-                nullable: true,
                 properties: {
                   id: { type: :integer, example: 1 },
                   name: { type: :string, example: 'FLETX Inc.' }
-                },
-                required: [ 'id', 'name' ]
+                }
               }
             },
-            required: [ 'id', 'email', 'role' ],
-            description: 'Información de un usuario'
+            required: [ 'id', 'email', 'name', 'lastName', 'role' ],
+            description: 'Información del usuario'
           },
           users_response: {
             type: :array,
@@ -178,6 +183,27 @@ RSpec.configure do |config|
             },
             required: [ 'id', 'name', 'category', 'address', 'phone_number', 'assets', 'liabilities' ],
             description: 'Información completa de una empresa'
+          },
+          user_request: {
+            type: :object,
+            properties: {
+              user: {
+                type: :object,
+                properties: {
+                  name: { type: :string, example: 'Juan' },
+                  last_name: { type: :string, example: 'Pérez' },
+                  email: { type: :string, example: 'juan.perez@example.com' },
+                  role_id: { type: :integer, example: 1 },
+                  company_id: { type: :integer, example: 1 },
+                  work_position: { type: :string, example: 'Gerente de Operaciones' },
+                  phone_number: { type: :string, example: '3001234567' },
+                  salary: { type: :number, format: :float, example: 50000.0 }
+                },
+                required: [ 'name', 'last_name', 'email', 'role_id', 'company_id' ]
+              }
+            },
+            required: [ 'user' ],
+            description: 'Solicitud para crear un nuevo usuario'
           },
           company_request: {
             type: :object,

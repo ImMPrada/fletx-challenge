@@ -2,7 +2,7 @@ class MagicLinkToken < ApplicationRecord
   belongs_to :user
   before_create :generate_token
 
-  DEFAULT_EXPIRATION_TIME = 5.minutes
+  DEFAULT_EXPIRATION_TIME = 1.hour
 
   def self.verify!(raw_token)
     token = find_by(token: raw_token)
