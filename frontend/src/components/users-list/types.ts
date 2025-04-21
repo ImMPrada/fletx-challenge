@@ -1,3 +1,5 @@
 export interface UsersListProps {
-  title?: string;
+  canCreateUser?: boolean;
+  canUpdateUser?: boolean;
+  canDeleteUser?: boolean;
 }

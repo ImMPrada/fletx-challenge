@@ -6,9 +6,11 @@ export const FEATURES = {
   VIEW_USERS: 'users.list',
   CREATE_USER: 'users.create',
   UPDATE_USER: 'users.update',
-  DELETE_USER: 'users.delete',
   LIST_PRODUCTS: 'products.list',
   CREATE_PRODUCT: 'products.create',
   VIEW_PRODUCT: 'products.read',
   UPDATE_PRODUCT: 'products.update',
+  DELETE_PRODUCT: 'products.delete',
+  DELETE_COMPANY: 'companies.delete',
+  DELETE_USER: 'users.delete',
 };
