@@ -58,10 +58,20 @@ const EditUser = () => {
     );
   }
 
+  const userWithRoleAndCompanyIds = {
+    ...user,
+    id: user?.id ?? '',
+    name: user?.name ?? '',
+    last_name: user?.last_name ?? '',
+    email: user?.email ?? '',
+    role_id: user?.role?.id ?? 0,
+    company_id: user?.company?.id ?? 0
+  };
+
   return (
     <ContainerWithFloatingNavbar>
       <h1 className="text-2xl font-bold mb-6">Editar Usuario</h1>
-      <UserForm initialData={user} mode="edit" />
+      <UserForm initialData={userWithRoleAndCompanyIds} mode="edit" />
     </ContainerWithFloatingNavbar>
   );
 };

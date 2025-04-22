@@ -1,13 +1,17 @@
+import { Role, Company } from "../use-users-list/types";
+
 export interface User {
   id: string;
   name: string;
   last_name: string;
   email: string;
-  role_id: number;
-  company_id: number;
   work_position?: string;
   phone_number?: string;
   salary?: string;
+  role_id: number;
+  company_id: number;
+  role: Role;
+  company: Company;
 }
 
 export interface ApiResponse {

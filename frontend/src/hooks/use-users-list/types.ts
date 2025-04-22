@@ -15,7 +15,9 @@ export interface User {
   name?: string;
   lastName?: string;
   workPosition?: string;
+  work_position?: string;
   phoneNumber?: string;
+  phone_number?: string;
   salary?: number;
   role: Role;
   company?: Company;

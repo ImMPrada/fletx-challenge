@@ -2,10 +2,17 @@ export interface User {
   id: string;
   email: string;
   name?: string;
-  lastName?: string;
-  workPosition?: string;
-  phoneNumber?: string;
+  last_name?: string;
+  work_position?: string;
+  phone_number?: string;
   salary?: number;
+  role_id: number;
+  company_id: number;
+  role?: {
+    id: number;
+    code: string;
+    description: string;
+  };
   company?: {
     id: string;
     name: string;
