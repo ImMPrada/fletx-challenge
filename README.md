@@ -95,3 +95,12 @@ Características clave:
 ➡️ [App desplegada](https://fletx-challenge.vercel.app/companies)
 
 ---
+
+Probando el entorno preview despleado:
+
+como el correo del remitente que se está usando no está registrado como correo corporativo (es simplemente gmail) está tardando en exceso el envío por filtros spam. en este video utilizamos un servicio de correo temporal que nos entrega una dirección de correo aleatoria y es con la que haremos las veces de usuario, eñ servicio utilizado es https://temp-mail.org/es
+
+probando el flujo de inicio de sesion:
+
+https://www.loom.com/share/8179c38f07c042ed8506203f3c9837c5?sid=fe7776ae-97de-44db-80c3-d6c7520c1205
+
