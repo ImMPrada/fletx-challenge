@@ -26,7 +26,7 @@ RSpec.describe 'Users API', type: :request do
           data = JSON.parse(response.body)
           expect(data).to be_an(Array)
           expect(data.length).to be >= 2
-          expect(data.first).to include('id', 'email', 'role')
+          expect(data.first).to include('id', 'email', 'name', 'last_name', 'role')
         end
       end
 

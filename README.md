@@ -87,8 +87,11 @@ Características clave:
 ## 📚 Más información
 
 ➡️ [Detalles de despliegue del backend](./backend/README.md)
+
 ➡️ [Detalles de despliegue del frontend](./frontend/README.md)
+
 ➡️ [Documentación de la API](https://fletx-challenge.fly.dev/api/v1/docs/index.html)
+
 ➡️ [App desplegada](https://fletx-challenge.vercel.app/companies)
 
 ---
