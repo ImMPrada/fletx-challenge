@@ -35,17 +35,17 @@ const Profile = () => {
               </div>
             )}
             
-            {user?.lastName && (
+            {user?.last_name && (
               <div className="flex flex-col">
                 <span className="text-sm text-gray-500">Apellido</span>
-                <span className="font-medium">{user.lastName}</span>
+                <span className="font-medium">{user.last_name}</span>
               </div>
             )}
             
-            {user?.phoneNumber && (
+            {user?.phone_number && (
               <div className="flex flex-col">
                 <span className="text-sm text-gray-500">Teléfono</span>
-                <span className="font-medium">{user.phoneNumber}</span>
+                <span className="font-medium">{user.phone_number}</span>
               </div>
             )}
           </div>
@@ -54,10 +54,10 @@ const Profile = () => {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Información Laboral</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {user?.workPosition && (
+            {user?.work_position && (
               <div className="flex flex-col">
                 <span className="text-sm text-gray-500">Puesto</span>
-                <span className="font-medium">{user.workPosition}</span>
+                <span className="font-medium">{user.work_position}</span>
               </div>
             )}
             

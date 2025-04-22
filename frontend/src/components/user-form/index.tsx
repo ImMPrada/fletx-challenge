@@ -52,8 +52,6 @@ const UserForm = ({ initialData = null, mode = 'create' }: UserFormProps) => {
   // Manejar errores de validación de la API
   useEffect(() => {
     if (validationErrors && formSubmitted) {
-      console.log('Errores de validación recibidos:', validationErrors);
-      
       // Limpiar errores existentes antes de añadir nuevos
       dispatch({ type: 'CLEAR_ERRORS' });
       
@@ -87,7 +85,6 @@ const UserForm = ({ initialData = null, mode = 'create' }: UserFormProps) => {
   // Manejar mensaje de éxito o error general
   useEffect(() => {
     if (isSuccess) {
-      console.log(mode === 'create' ? 'Usuario creado exitosamente' : 'Usuario actualizado exitosamente');
       setFormSubmitted(false);
 
       setFlash(
@@ -102,7 +99,6 @@ const UserForm = ({ initialData = null, mode = 'create' }: UserFormProps) => {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e, async (data) => {
       setFormSubmitted(true);
-      console.log('Datos del usuario:', data);
       
       // Preparamos el cuerpo de la petición con los datos del formulario
       const requestBody: UpdateUserParams = {
@@ -124,8 +120,8 @@ const UserForm = ({ initialData = null, mode = 'create' }: UserFormProps) => {
         } else if (mode === 'edit' && initialData) {
           await updateUser(parseInt(initialData.id), requestBody);
         }
-      } catch (error) {
-        console.error('Error inesperado:', error);
+      } catch {
+        // Error silenciado
       }
     });
   };

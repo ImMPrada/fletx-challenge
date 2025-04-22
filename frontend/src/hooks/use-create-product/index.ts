@@ -68,7 +68,6 @@ export function useCreateProduct(): UseCreateProductReturn {
       // Capturar errores de red u otros errores inesperados
       const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
       setError(errorMessage);
-      console.error('Error en createProduct:', error);
       
       return {
         status: 500,

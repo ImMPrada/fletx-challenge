@@ -25,7 +25,6 @@ export const useCompaniesList = (): UseCompaniesListReturn => {
     } catch (err) {
       setCompanies([]);
       setError(err instanceof Error ? err.message : 'Error al obtener la lista de empresas');
-      console.error('Error fetching companies:', err);
     } finally {
       setIsLoading(false);
     }

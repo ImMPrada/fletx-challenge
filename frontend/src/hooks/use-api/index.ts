@@ -41,8 +41,6 @@ export const useApi = (): UseApiReturn => {
       // Leemos el cuerpo de la respuesta una sola vez
       const responseData = await response.json();
 
-      console.log(responseData);
-
       // Agregamos el status a los datos para poder manejarlo fácilmente
       let result;
 
@@ -67,7 +65,7 @@ export const useApi = (): UseApiReturn => {
 
       return result as T;
     } catch (error) {
-      console.error('Error en fetchData:', error);
+      // Es necesario capturar errores de red o JSON inválido
       throw error;
     }
   }, [navigate, setFlash]);
