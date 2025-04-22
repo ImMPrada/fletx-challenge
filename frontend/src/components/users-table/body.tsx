@@ -2,6 +2,7 @@ import { BodyProps } from './types';
 import Actions from './actions';
 
 const Body = ({ users, canCreateUser, canUpdateUser, canDeleteUser, fetchUsers }: BodyProps) => {
+
   return (
     <tbody>
       {users.map((user) => (
@@ -13,7 +14,7 @@ const Body = ({ users, canCreateUser, canUpdateUser, canDeleteUser, fetchUsers }
             {user.email}
           </td>
           <td className="py-2 px-4 border-b">
-            {user.workPosition || '-'}
+            {user['work_position'] || user['workPosition'] || '-'}
           </td>
           <td className="py-2 px-4 border-b">
             {user.role.code}: {user.role.description}

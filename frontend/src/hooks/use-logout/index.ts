@@ -26,8 +26,7 @@ export const useLogout = (): UseLogoutReturn => {
       // Redirigir al usuario a la página de login
       setIsLogout(true);
       navigate('/login');
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+    } catch {
       setFlash('Error al cerrar sesión', 'error');
       
       // En caso de error, intentar hacer logout localmente de todas formas

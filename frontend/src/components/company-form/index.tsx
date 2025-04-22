@@ -39,8 +39,6 @@ const CompanyForm = ({ initialData = null, mode = 'create' }: CompanyFormProps) 
   // Manejar errores de validación de la API
   useEffect(() => {
     if (validationErrors && formSubmitted) {
-      console.log('Errores de validación recibidos:', validationErrors);
-      
       // Limpiar errores existentes antes de añadir nuevos
       dispatch({ type: 'CLEAR_ERRORS' });
       
@@ -71,7 +69,6 @@ const CompanyForm = ({ initialData = null, mode = 'create' }: CompanyFormProps) 
   // Manejar mensaje de éxito o error general
   useEffect(() => {
     if (isSuccess) {
-      console.log(mode === 'create' ? 'Empresa creada exitosamente' : 'Empresa actualizada exitosamente');
       setFormSubmitted(false);
 
       setFlash(
@@ -86,7 +83,6 @@ const CompanyForm = ({ initialData = null, mode = 'create' }: CompanyFormProps) 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e, async (data) => {
       setFormSubmitted(true);
-      console.log('Datos de la empresa:', data);
       
       // Preparamos el cuerpo de la petición con los datos del formulario
       const requestBody = {
@@ -108,8 +104,8 @@ const CompanyForm = ({ initialData = null, mode = 'create' }: CompanyFormProps) 
         } else if (mode === 'edit' && initialData) {
           await updateCompany(initialData.id, requestBody);
         }
-      } catch (error) {
-        console.error('Error inesperado:', error);
+      } catch {
+        // Error silenciado
       }
     });
   };

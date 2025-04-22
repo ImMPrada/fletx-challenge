@@ -41,10 +41,10 @@ RSpec.describe 'Users API', type: :request do
 
         run_test! do |response|
           data = JSON.parse(response.body)
-          expect(data).to include('id', 'email', 'name', 'lastName', 'role')
+          expect(data).to include('id', 'email', 'name', 'last_name', 'role')
           expect(data['email']).to eq('juan.perez@example.com')
           expect(data['name']).to eq('Juan')
-          expect(data['lastName']).to eq('Pérez')
+          expect(data['last_name']).to eq('Pérez')
         end
       end
 

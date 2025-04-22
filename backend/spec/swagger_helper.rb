@@ -126,9 +126,9 @@ RSpec.configure do |config|
               id: { type: :integer, example: 1 },
               email: { type: :string, example: 'usuario@example.com' },
               name: { type: :string, example: 'Juan' },
-              lastName: { type: :string, example: 'Pérez' },
-              workPosition: { type: :string, example: 'Gerente de Operaciones' },
-              phoneNumber: { type: :string, example: '3001234567' },
+              last_name: { type: :string, example: 'Pérez' },
+              work_position: { type: :string, example: 'Gerente de Operaciones' },
+              phone_number: { type: :string, example: '3001234567' },
               salary: { type: :number, format: :float, example: 50000.0 },
               role: {
                 type: :object,
@@ -146,7 +146,7 @@ RSpec.configure do |config|
                 }
               }
             },
-            required: [ 'id', 'email', 'name', 'lastName', 'role' ],
+            required: [ 'id', 'email', 'name', 'last_name', 'role' ],
             description: 'Información del usuario'
           },
           users_response: {

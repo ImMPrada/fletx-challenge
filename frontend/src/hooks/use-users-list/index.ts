@@ -25,7 +25,6 @@ export const useUsersList = (): UseUsersListReturn => {
     } catch (err) {
       setUsers([]);
       setError(err instanceof Error ? err.message : 'Error al obtener la lista de usuarios');
-      console.error('Error fetching users:', err);
     } finally {
       setIsLoading(false);
     }

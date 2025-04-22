@@ -14,7 +14,6 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email);
 
     if (!email) {
       setError({ email: 'El email es requerido' });

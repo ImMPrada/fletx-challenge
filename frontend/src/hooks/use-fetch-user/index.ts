@@ -23,7 +23,6 @@ export const useFetchUser = (): UseFetchUserReturn => {
     } catch (err) {
       setUser(null);
       setError(err instanceof Error ? err.message : 'Error al obtener el usuario');
-      console.error('Error fetching user:', err);
     } finally {
       setIsLoading(false);
     }
